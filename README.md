@@ -15,6 +15,8 @@ Basic example of access control with face recognition
 - [ ] Qr-Code to easy registration and temporary access
 - [ ] Audio code (CHIRP) to easy registration and temporary access
 
+![](face_access_add_demo.gif)
+
 ## After installation
 To start, with terminal go to folder path and execute:
 ```bash

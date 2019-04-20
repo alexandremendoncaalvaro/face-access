@@ -67,6 +67,17 @@ class Face:
     def get_faces_images():
         return Face._faces_images
 
+    def save_current_face():
+        try:
+            if len(Face._faces_images) > 0:
+                cv2.imwrite('face_image.jpg', Face._faces_images[0])
+            try_again = False
+            return try_again
+        except EnvironmentError:
+            try_again = True
+            return try_again
+    
+
     def locate_faces(frame):
         rgb_small_frame = Face.to_rgb_small_frame(frame)
         face_locations = face_recognition.face_locations(rgb_small_frame)

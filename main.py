@@ -42,11 +42,7 @@ def execute_command(command):
 def save_current_face():
     loop = True
     while loop:
-        faces_images = Face.get_faces_images()
-        if len(faces_images) > 0:
-            cv2.imwrite('face_image.jpg', faces_images[0])
-            loop = False
-
+        loop = Face.save_current_face()
 
 def update_database():
     loop = True
