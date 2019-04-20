@@ -1,9 +1,20 @@
 # Face Access
 
 Basic example of access control with face recognition
+  * MIT License
 
-Features and TO-DO list on Issues.
+### Basic Version
+- [x] Basic command line interface
+- [x] Face recogniton from Webcam
+- [x] Just need the photo for register. Save only a id on the database (file database).
 
+### More Complete Version (already tested, just need to port to this code)
+- [ ] Text to Speech for welcome audio message
+- [ ] Arduino commands to open the door
+- [ ] Qr-Code to easy registration and temporary access
+- [ ] Audio code (CHIRP) to easy registration and temporary access
+
+## After installation
 To start, with terminal go to folder path and execute:
 ```bash
 python3 main.py
@@ -46,10 +57,6 @@ or
 ```bash
 quit
 ```
-or
-```bash
-exit
-```
 
 # Technologies and Libraries
   * Python 3
@@ -61,7 +68,7 @@ For complete version (already tested but not implemented yet):
   * Arduino ([pyfirmata](https://pypi.org/project/pyFirmata/))
   * Google Text 2 Speech ([gTTS](https://pypi.org/project/gTTS/))
   * QR-Code ([pyZbar](https://pypi.org/project/pyzbar/))
-
+  * Audio-Code ([Chirp](https://developers.chirp.io/docs))
 # Installation
 
 ## Python 3 + OpenCV
@@ -117,4 +124,16 @@ Python 3 lib:
 pip3 install pyzbar
 ```
 
-
+## Audio Code - CHIRP (complete version)
+macOS users can simply install using Homebrew
+```bash
+brew install zbar
+```
+Ubuntu users can install using
+```bash
+sudo apt-get install libzbar-dev libzbar0
+```
+Python 3 lib:
+```bash
+pip3 install pyzbar
+```
