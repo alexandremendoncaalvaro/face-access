@@ -2,7 +2,55 @@
 
 Basic example of access control with face recognition
 
-Using: 
+Features and TO-DO list on Issues.
+
+## CLI commands:
+To start, with terminal go to folder path and execute:
+```bash
+python3 main.py
+```
+If everything is right, a new window with the webcam streaming and face recognition will start.
+In the terminal you should see somethong like:
+*CMD:*
+
+Where you can do some actions like:
+*Don't use spaces between parameters, only between firstname, midlename, lastname..
+
+### Examples
+Add a new face id from a image file in the folder images:
+```bash
+add,Joseph Smith,images/joseph.jpg
+```
+
+Add a new face id from the current webcam capture:
+```bash
+add,Joseph Smith
+```
+
+List the current face ids:
+```bash
+print
+```
+
+Remove a face id:
+```bash
+del,Joseph Smith
+```
+
+Exit:
+```bash
+q
+```
+or
+```bash
+quit
+```
+or
+```bash
+exit
+```
+
+## Using 
   * Python 3
   * OpenCV
   * [dlib](http://dlib.net/)
