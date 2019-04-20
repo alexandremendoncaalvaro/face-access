@@ -4,19 +4,20 @@ Basic example of access control with face recognition
 
 Features and TO-DO list on Issues.
 
-## CLI commands:
 To start, with terminal go to folder path and execute:
 ```bash
 python3 main.py
 ```
-If everything is right, a new window with the webcam streaming and face recognition will start.
-In the terminal you should see somethong like:
-*CMD:*
 
-Where you can do some actions like:
+## CLI commands:
+If everything is right, a new window with the webcam streaming and face recognition will start.
+In the terminal you should see somethong like: 
+
+**CMD:**
+
+### Where you can do some actions like:
 *Don't use spaces between parameters, only between firstname, midlename, lastname..
 
-### Examples
 Add a new face id from a image file in the folder images:
 ```bash
 add,Joseph Smith,images/joseph.jpg
@@ -50,13 +51,13 @@ or
 exit
 ```
 
-## Using 
+# Technologies and Libraries
   * Python 3
   * OpenCV
   * [dlib](http://dlib.net/)
   * Face Recognition ([ageitgey](https://github.com/ageitgey/face_recognition))
 
-Complete version:
+For complete version (already tested but not implemented yet):
   * Arduino ([pyfirmata](https://pypi.org/project/pyFirmata/))
   * Google Text 2 Speech ([gTTS](https://pypi.org/project/gTTS/))
   * QR-Code ([pyZbar](https://pypi.org/project/pyzbar/))
@@ -85,7 +86,7 @@ pip3 install face_recognition
 While Windows isn't officially supported, helpful users have posted instructions on how to install this library:
   * [@masoudr's Windows 10 installation guide (dlib + face_recognition)](https://github.com/ageitgey/face_recognition/issues/175#issue-257710508)
   
-## Arduino control with pyFirmata (optional)
+## Arduino control with pyFirmata (complete version)
 You will need an Arduino Board like Uno, Mega, Micro, Nano with a relay module to control the access.
 Install Arduino IDE and use the Example Firmata > StandardFirmata on the board.
 The board need to stay connected by USB.
@@ -96,13 +97,13 @@ Python 3 lib:
 pip3 install pyFirmata
 ```
 
-## Google Text 2 Speech
+## Google Text 2 Speech (complete version)
 Python 3 lib:
 ```bash
 pip3 install gTTS
 ```
 
-## QR-Code
+## QR-Code (complete version)
 macOS users can simply install using Homebrew
 ```bash
 brew install zbar
