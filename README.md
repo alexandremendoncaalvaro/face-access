@@ -2,6 +2,7 @@
 
 Basic example of access control with face recognition
   * MIT License
+  * LGPDP Brasil Safe (Lei Geral de Proteção de Dados Pessoais)
 
 ### Basic Version
 - [x] Basic command line interface
