@@ -1,9 +1,5 @@
 import face_recognition
 import cv2
-import numpy as np
-import pickle
-import glob
-from video import Image
 from facial_id import *
 
 

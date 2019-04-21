@@ -1,5 +1,4 @@
 import threading
-import time
 from video import Image, Video
 from face import *
 

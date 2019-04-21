@@ -1,9 +1,6 @@
-import sys
 import face_recognition
-import cv2
 import numpy as np
 import pickle
-import glob
 
 DATASET_FILENAME = 'dataset.dat'
 
@@ -46,19 +43,3 @@ class FacialId():
 
     def print_names(self):
         print(self.known_face_names)
-
-
-# facial_id = FacialId()
-# total_arguments = len(sys.argv)
-
-# if total_arguments == 3:
-#     name = sys.argv[1]
-#     image_path = sys.argv[2]
-#     facial_id.add(name, image_path)
-# elif total_arguments == 2:
-#     to_remove = sys.argv[1]
-#     facial_id.remove(to_remove)
-# elif total_arguments == 1:
-#     facial_id.load()
-
-# facial_id.print_names()
