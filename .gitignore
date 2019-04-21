@@ -102,3 +102,11 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# vscode
+.pylintrc
+.vscode
+
+# project ignored files
+dataset.dat
+face_image.jpg

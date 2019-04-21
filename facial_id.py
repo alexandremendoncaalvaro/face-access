@@ -5,52 +5,60 @@ import numpy as np
 import pickle
 import glob
 
-class FacialId:
-    _known_face_names = []
-    _known_face_encodings = []
-    _all_face_encodings = {}
+DATASET_FILENAME = 'dataset.dat'
 
-    def load():
-        with open('dataset_faces.dat', 'rb') as f:
-            FacialId._all_face_encodings = pickle.load(f)
+class FacialId():
+    def __init__(self):
+        self.known_face_names = []
+        self.known_face_encodings = []
+        self.all_face_encodings = {}
 
-        FacialId._known_face_names = list(
-            FacialId._all_face_encodings.keys())
-        FacialId._known_face_encodings = np.array(
-            list(FacialId._all_face_encodings.values()))
+    def load(self):
+        try:
+            with open(DATASET_FILENAME, 'rb') as f:
+                self.all_face_encodings = pickle.load(f)
 
-    def add(name, image_path):
-        FacialId.load()
+            self.known_face_names = list(
+                self.all_face_encodings.keys())
+            self.known_face_encodings = np.array(
+                list(self.all_face_encodings.values()))
+        except:
+            print('Dataset file not found!')
+        
+
+    def add(self, name, image_path):
+        self.load()
         loaded_image = face_recognition.load_image_file(image_path)
         face_encoding = face_recognition.face_encodings(loaded_image)[0]
-        FacialId._all_face_encodings[name] = face_encoding
-        FacialId._known_face_names = list(
-            FacialId._all_face_encodings.keys())
-        with open('dataset_faces.dat', 'wb') as f:
-            pickle.dump(FacialId._all_face_encodings, f)
+        self.all_face_encodings[name] = face_encoding
+        self.known_face_names = list(
+            self.all_face_encodings.keys())
+        with open(DATASET_FILENAME, 'wb') as f:
+            pickle.dump(self.all_face_encodings, f)
 
-    def remove(to_remove):
-        FacialId.load()
-        FacialId._all_face_encodings.pop(to_remove)
-        FacialId._known_face_names = list(
-            FacialId._all_face_encodings.keys())
-        with open('dataset_faces.dat', 'wb') as f:
-            pickle.dump(FacialId._all_face_encodings, f)
+    def remove(self, to_remove):
+        self.load()
+        self.all_face_encodings.pop(to_remove)
+        self.known_face_names = list(
+            self.all_face_encodings.keys())
+        with open(DATASET_FILENAME, 'wb') as f:
+            pickle.dump(self.all_face_encodings, f)
 
-    def print_names():
-        print(FacialId._known_face_names)
+    def print_names(self):
+        print(self.known_face_names)
 
 
-total_arguments = len(sys.argv)
+# facial_id = FacialId()
+# total_arguments = len(sys.argv)
 
-if total_arguments == 3:
-    name = sys.argv[1]
-    image_path = sys.argv[2]
-    FacialId.add(name, image_path)
-elif total_arguments == 2:
-    to_remove = sys.argv[1]
-    FacialId.remove(to_remove)
-elif total_arguments == 1:
-    FacialId.load()
+# if total_arguments == 3:
+#     name = sys.argv[1]
+#     image_path = sys.argv[2]
+#     facial_id.add(name, image_path)
+# elif total_arguments == 2:
+#     to_remove = sys.argv[1]
+#     facial_id.remove(to_remove)
+# elif total_arguments == 1:
+#     facial_id.load()
 
-FacialId.print_names()
+# facial_id.print_names()
