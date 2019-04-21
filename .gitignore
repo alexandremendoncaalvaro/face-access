@@ -107,6 +107,9 @@ venv.bak/
 .pylintrc
 .vscode
 
+# Mac
+.DS_Store
+
 # project ignored files
 dataset.dat
 face_image.jpg
