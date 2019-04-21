@@ -1,7 +1,7 @@
-import face_recognition
 import cv2
+import face_recognition
 from facial_id import *
-
+from temp_access import *
 
 MAX_FACE_DISTANCE = .4
 PROCESSED_FRAME_SHRINK_FACTOR = 5
@@ -10,9 +10,10 @@ UNKNOW_FACE_TEXT = 'Desconhecido'
 TEMP_FACE_IMAGE_FILENAME = 'face_image.jpg'
 
 facial_id = FacialId()
+qr_code = Qr_code()
 
 
-class Face():
+class Frame():
     def __init__(self):
         self._current_non_processed_frame = 0
         self._face_locations = []
@@ -24,8 +25,9 @@ class Face():
         facial_id.load()
 
     def process_frame(self, frame):
+        qr_codes, frame = qr_code.get_qr_codes(frame)
         self.process_faces(frame)
-        painted_frame = self.paint_frame(frame)
+        painted_frame = self.paint_faces_rect(frame)
         return painted_frame
 
     def to_rgb_small_frame(self, frame):
@@ -34,7 +36,7 @@ class Face():
         rgb_small_frame = small_frame[:, :, ::-1]
         return rgb_small_frame
 
-    def paint_frame(self, frame):
+    def paint_faces_rect(self, frame):
         font = cv2.FONT_HERSHEY_DUPLEX
         font_size = 0.8
 
@@ -58,8 +60,6 @@ class Face():
 
         return frame
 
-    def get_faces_images(self):
-        return self._faces_images
 
     def save_current_face(self):
         try_again = True
@@ -94,9 +94,10 @@ class Face():
 
     def process_faces(self, frame):
         self.locate_faces(frame)
-        self._current_non_processed_frame += 1
-        should_process_this_frame = self._current_non_processed_frame >= RECOGNIZE_EVERY_N_FRAME
 
+        self._current_non_processed_frame += 1
+
+        should_process_this_frame = self._current_non_processed_frame >= RECOGNIZE_EVERY_N_FRAME
         if should_process_this_frame:
             self._current_non_processed_frame = 0
             self.recognize_faces()

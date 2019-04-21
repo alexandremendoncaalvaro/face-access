@@ -1,13 +1,13 @@
 import threading
 from video import Image, Video
-from face import *
+from video_frame import *
 
 video = Video()
 image = Image()
-face = Face()
+video_frame = Frame()
 
 def main():
-    face.load_facial_ids()
+    video_frame.load_facial_ids()
 
     thread_cli = threading.Thread(target=execute_cli)
     thread_cli.start()
@@ -15,7 +15,8 @@ def main():
     loop = True
     while loop:
         frame = video.get_frame()
-        processed_frame = face.process_frame(frame)
+        processed_frame = video_frame.process_frame(frame)
+
         video.update_window(processed_frame)
 
         loop = video.stop_when_key_press('q')
@@ -29,7 +30,7 @@ def execute_command(command):
     loop = True
     commands = command.split(',')
     if command == 'update' or command == 'refresh':
-        face.load_facial_ids()
+        video_frame.load_facial_ids()
     elif command == 'exit' or command == 'quit' or command == 'q':
         loop = False
     elif command == 'print' or command == 'faces' or command == 'names' or command == 'ids':
@@ -40,16 +41,16 @@ def execute_command(command):
         if total_parameters > 1:
             image_path = commands[total_parameters]
         else:
-            face.save_current_face()
+            video_frame.save_current_face()
             image_path = 'face_image.jpg'
         facial_id.add(name, image_path)
         facial_id.print_names()
-        face.load_facial_ids()
+        video_frame.load_facial_ids()
     elif command.find('del') > -1 or command.find('rem') > -1:
         name = commands[1]
         facial_id.remove(name)
         facial_id.print_names()
-        face.load_facial_ids()
+        video_frame.load_facial_ids()
     else:
         print('Comando não identificado!')
 
