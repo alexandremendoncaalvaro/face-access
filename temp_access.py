@@ -1,7 +1,7 @@
 from pyzbar import pyzbar
 import cv2
 
-class Qr_code():
+class QrCode():
     def get_qr_codes(self, frame):
         barcodes = pyzbar.decode(frame)
         barcodes_data = []

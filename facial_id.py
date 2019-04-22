@@ -4,7 +4,8 @@ import pickle
 
 DATASET_FILENAME = 'dataset.dat'
 
-class FacialId():
+
+class FacialIdDataset():
     def __init__(self):
         self.known_face_names = []
         self.known_face_encodings = []
@@ -15,29 +16,30 @@ class FacialId():
             with open(DATASET_FILENAME, 'rb') as f:
                 self.all_face_encodings = pickle.load(f)
 
-            self.known_face_names = list(
-                self.all_face_encodings.keys())
-            self.known_face_encodings = np.array(
-                list(self.all_face_encodings.values()))
+            self.update()
         except:
-            print('Dataset file not found!')
-        
+            print(DATASET_FILENAME + ' file not found!')
 
     def add(self, name, image_path):
         self.load()
         loaded_image = face_recognition.load_image_file(image_path)
         face_encoding = face_recognition.face_encodings(loaded_image)[0]
         self.all_face_encodings[name] = face_encoding
-        self.known_face_names = list(
-            self.all_face_encodings.keys())
-        with open(DATASET_FILENAME, 'wb') as f:
-            pickle.dump(self.all_face_encodings, f)
+        self.save()
 
     def remove(self, to_remove):
         self.load()
         self.all_face_encodings.pop(to_remove)
+        self.save()
+
+    def update(self):
         self.known_face_names = list(
             self.all_face_encodings.keys())
+        self.known_face_encodings = np.array(
+            list(self.all_face_encodings.values()))
+
+    def save(self):
+        self.update()
         with open(DATASET_FILENAME, 'wb') as f:
             pickle.dump(self.all_face_encodings, f)
 

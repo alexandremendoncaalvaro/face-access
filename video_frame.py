@@ -9,20 +9,19 @@ RECOGNIZE_EVERY_N_FRAME = 10
 UNKNOW_FACE_TEXT = 'Desconhecido'
 TEMP_FACE_IMAGE_FILENAME = 'face_image.jpg'
 
-facial_id = FacialId()
-qr_code = Qr_code()
+facial_id_dataset = FacialIdDataset()
+qr_code = QrCode()
 
+class FrameFaces():
+    locations = []
+    encodings = []
+    names = []
+    images = []
 
 class Frame():
     def __init__(self):
-        self._current_non_processed_frame = 0
-        self._face_locations = []
-        self._face_encodings = []
-        self._face_names = []
-        self._faces_images = []
-
-    def load_facial_ids(self):
-        facial_id.load()
+        self.current_non_processed_frame = 0
+        self.are_there_recognized_faces = False
 
     def process_frame(self, frame):
         qr_codes, frame = qr_code.get_qr_codes(frame)
@@ -42,16 +41,16 @@ class Frame():
 
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2BGRA)
 
-        self._faces_images = []
+        FrameFaces.images = []
 
-        for (top, right, bottom, left), name in zip(self._face_locations, self._face_names):
+        for (top, right, bottom, left), name in zip(FrameFaces.locations, FrameFaces.names):
             top *= PROCESSED_FRAME_SHRINK_FACTOR
             right *= PROCESSED_FRAME_SHRINK_FACTOR
             bottom *= PROCESSED_FRAME_SHRINK_FACTOR
             left *= PROCESSED_FRAME_SHRINK_FACTOR
 
             face_image = frame[top:bottom, left:right]
-            self._faces_images.append(face_image)
+            FrameFaces.images.append(face_image)
 
             cv2.rectangle(frame, (left, top),
                           (right, bottom), (255, 255, 255), 2)
@@ -65,9 +64,9 @@ class Frame():
         try_again = True
         while try_again:
             try:
-                if len(self._faces_images) > 0:
+                if len(FrameFaces.images) > 0:
                     cv2.imwrite(TEMP_FACE_IMAGE_FILENAME,
-                                self._faces_images[0])
+                                FrameFaces.images[0])
                 try_again = False
             except:
                 try_again = True
@@ -75,29 +74,32 @@ class Frame():
     def locate_faces(self, frame):
         rgb_small_frame = self.to_rgb_small_frame(frame)
         face_locations = face_recognition.face_locations(rgb_small_frame)
-        self._face_locations = face_locations
-        self._face_encodings = face_recognition.face_encodings(
+        FrameFaces.locations = face_locations
+        FrameFaces.encodings = face_recognition.face_encodings(
             rgb_small_frame, face_locations)
 
     def recognize_faces(self):
         face_names = []
-        for face_encoding in self._face_encodings:
+        for face_encoding in FrameFaces.encodings:
             face_distances = face_recognition.face_distance(
-                facial_id.known_face_encodings, face_encoding)
+                facial_id_dataset.known_face_encodings, face_encoding)
             name = UNKNOW_FACE_TEXT
             for i, face_distance in enumerate(face_distances):
                 if face_distance < MAX_FACE_DISTANCE:
-                    name = facial_id.known_face_names[i]
+                    name = facial_id_dataset.known_face_names[i]
+
                     break
             face_names.append(name)
-        self._face_names = face_names
+        FrameFaces.names = face_names
+        recognized_faces = [x for x in face_names if x != "Desconhecido"]
+        self.are_there_recognized_faces = len(recognized_faces) > 0
 
     def process_faces(self, frame):
         self.locate_faces(frame)
 
-        self._current_non_processed_frame += 1
+        self.current_non_processed_frame += 1
 
-        should_process_this_frame = self._current_non_processed_frame >= RECOGNIZE_EVERY_N_FRAME
+        should_process_this_frame = self.current_non_processed_frame >= RECOGNIZE_EVERY_N_FRAME
         if should_process_this_frame:
-            self._current_non_processed_frame = 0
+            self.current_non_processed_frame = 0
             self.recognize_faces()

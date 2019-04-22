@@ -30,10 +30,10 @@ class Video():
         cv2.imshow('Video', frame)
    
     def stop_when_key_press(self, key):
-        still_play = True
+        stop = False
         if cv2.waitKey(1) & 0xFF == ord(key):
-            still_play = False
-        return still_play
+            stop = True
+        return stop
 
     def finish(self):
         self._video_capture.release()
