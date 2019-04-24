@@ -5,12 +5,14 @@ from temp_access import *
 
 MAX_FACE_DISTANCE = .4
 PROCESSED_FRAME_SHRINK_FACTOR = 5
-RECOGNIZE_EVERY_N_FRAME = 10
+LOCATE_FACES_EVERY_FRAME = True
+RECOGNIZE_FACES_EVERY_N_FRAME = 10
 UNKNOW_FACE_TEXT = 'Desconhecido'
 TEMP_FACE_IMAGE_FILENAME = 'face_image.jpg'
 
 facial_id_dataset = FacialIdDataset()
 qr_code = QrCode()
+otp = OneTimePassword()
 
 class FrameFaces():
     locations = []
@@ -95,11 +97,14 @@ class Frame():
         self.are_there_recognized_faces = len(recognized_faces) > 0
 
     def process_faces(self, frame):
-        self.locate_faces(frame)
+        if LOCATE_FACES_EVERY_FRAME:
+            self.locate_faces(frame)
 
         self.current_non_processed_frame += 1
 
-        should_process_this_frame = self.current_non_processed_frame >= RECOGNIZE_EVERY_N_FRAME
+        should_process_this_frame = self.current_non_processed_frame >= RECOGNIZE_FACES_EVERY_N_FRAME
         if should_process_this_frame:
             self.current_non_processed_frame = 0
+            if not LOCATE_FACES_EVERY_FRAME:
+                self.locate_faces(frame)
             self.recognize_faces()

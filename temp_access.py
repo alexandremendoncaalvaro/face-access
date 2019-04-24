@@ -1,5 +1,19 @@
 from pyzbar import pyzbar
 import cv2
+import pyotp
+
+BASE_32_KEY = 'XCOBLUBMMAJND2GY'
+
+class OneTimePassword():
+    def __init__(self):
+        self.totp = pyotp.TOTP(BASE_32_KEY)
+
+    def get_new_base32_key(self):
+        return pyotp.random_base32()
+    
+    def verify(self, verification_key):
+        result = self.totp.verify(verification_key)
+        return result
 
 class QrCode():
     def get_qr_codes(self, frame):

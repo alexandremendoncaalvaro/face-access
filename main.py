@@ -72,6 +72,18 @@ def execute_command(command):
         facial_id_dataset.remove(name)
         facial_id_dataset.print_names()
 
+    elif command in ['generate key']:
+        result = otp.get_new_base32_key()
+        print(result)
+
+    elif command.find('password') > -1:
+        key = commands[1]
+        result = otp.verify(key)
+        if result:
+            give_access()
+        else:
+            print('Chave inválida!')
+
     else:
         print('Comando não identificado!')
 
@@ -95,6 +107,8 @@ def give_access():
 
 def grant_access():
     print('Acesso liberado!')
+    print('CMD: ')
+
     time.sleep(10)
 
 video = Video()
