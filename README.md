@@ -128,15 +128,18 @@ pip3 install pyzbar
 ```
 
 ## Audio Code - CHIRP (complete version)
+You will need generate keys to use this lib.
+[Official instructions] (https://developers.chirp.io/docs/getting-started/python)
+
 macOS users can simply install using Homebrew
 ```bash
-brew install zbar
+brew install portaudio libsndfile
 ```
 Ubuntu users can install using
 ```bash
-sudo apt-get install libzbar-dev libzbar0
+sudo apt-get install python3-dev python3-setuptools portaudio19-dev libffi-dev libsndfile1
 ```
 Python 3 lib:
 ```bash
-pip3 install pyzbar
+pip3 install chirpsdk
 ```
