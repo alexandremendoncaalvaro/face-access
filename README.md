@@ -3,12 +3,11 @@ Basic example of access control with face recognition
   * MIT License
   * LGPDP Brasil Safe (Lei Geral de Proteção de Dados Pessoais)
 
-### Basic Version
+### TODO List
 - [x] Basic command line interface
 - [x] Face recogniton from Webcam
-- [x] Just need the photo for register. Save only a id on the database (file database).
-
-### More Complete Version (already tested, just need to port to this code)
+- [x] Just use the photo once for register, after that discard. Save only a id on the local file database (LGPDP Brasil Safe).
+- [x] OneTimePassword with Google Authenticator
 - [ ] Text to Speech for welcome audio message
 - [ ] Arduino commands to open the door
 - [ ] Qr-Code to easy registration and temporary access
@@ -17,6 +16,7 @@ Basic example of access control with face recognition
 ### Improvements
 - [x] Multithread support
 - [x] GPU support
+- [ ] Improve performance with Region Of Interest method (https://github.com/hrastnik/face_detect_n_track)
 
 ![](face_access_add_demo.gif)
 
