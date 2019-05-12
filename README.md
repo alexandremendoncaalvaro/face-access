@@ -1,5 +1,4 @@
 # Face Access
-
 Basic example of access control with face recognition
   * MIT License
   * LGPDP Brasil Safe (Lei Geral de Proteção de Dados Pessoais)
@@ -14,6 +13,10 @@ Basic example of access control with face recognition
 - [ ] Arduino commands to open the door
 - [ ] Qr-Code to easy registration and temporary access
 - [ ] Audio code (CHIRP) to easy registration and temporary access
+
+### Improvements
+- [ ] Multithread support
+- [ ] GPU support
 
 ![](face_access_add_demo.gif)
 
@@ -32,27 +35,23 @@ In the terminal you should see somethong like:
 ### Where you can do some actions like:
 *Don't use spaces between parameters, only between firstname, midlename, lastname..
 
-Add a new face id from a image file in the folder images:
+**Add a new face id from a image file in the folder images:**
 ```bash
 add,Joseph Smith,images/joseph.jpg
 ```
-
-Add a new face id from the current webcam capture:
+**Add a new face id from the current webcam capture:**
 ```bash
 add,Joseph Smith
 ```
-
-List the current face ids:
+**List the current face ids:**
 ```bash
 print
 ```
-
-Remove a face id:
+**Remove a face id:**
 ```bash
 del,Joseph Smith
 ```
-
-Exit:
+**Exit:**
 ```bash
 q
 ```
@@ -62,67 +61,132 @@ quit
 ```
 
 # Technologies and Libraries
-  * Python 3
-  * OpenCV
-  * [dlib](http://dlib.net/)
-  * Face Recognition ([ageitgey](https://github.com/ageitgey/face_recognition))
+* [Python 3](https://www.python.org/)
+* [OpenCV](https://opencv.org/)
+* [dlib](http://dlib.net/)
+* Face Recognition ([ageitgey](https://github.com/ageitgey/face_recognition))
 
 For complete version (already tested but not implemented yet):
-  * Arduino ([pyfirmata](https://pypi.org/project/pyFirmata/))
-  * Google Text 2 Speech ([gTTS](https://pypi.org/project/gTTS/))
-  * QR-Code ([pyZbar](https://pypi.org/project/pyzbar/))
-  * Audio-Code ([Chirp](https://developers.chirp.io/docs))
+* Arduino ([pyfirmata](https://pypi.org/project/pyFirmata/))
+* Google Text 2 Speech ([gTTS](https://pypi.org/project/gTTS/))
+* QR-Code ([pyZbar](https://pypi.org/project/pyzbar/))
+* Audio-Code ([Chirp](https://developers.chirp.io/docs))
+
 # Installation
-
-## Python 3 + OpenCV
-[Complete Tutorial from pyimagesearch](https://www.pyimagesearch.com/2018/09/19/pip-install-opencv/)
-
-## DLib + Face Recognition (ageitgey)
-### Requirements
+## Requirements
   * Python 3.3+
-  * macOS or Linux (Windows not officially supported, but might work)
-  
-#### Installing on Mac or Linux
-First, make sure you have dlib already installed with Python bindings:
-  * [How to install dlib from source on macOS or Ubuntu](https://gist.github.com/ageitgey/629d75c1baac34dfa5ca2a1928a7aeaf)
+  * Cmake(Linux and Windows) or XCode (MacOS)
+  * MacOS or Linux (Tested with Ubuntu 18.04).
+    * Windows not officially supported by DLib and Face Recoginition library, but might work (slowly)
+  * I strongly recommend that you use a package manager like Homebrew (MacOS), apt-get (Ubuntu) and Chocolatey (Windows)
+
+## XCode
+### MacOS
+* Install XCode from App Store
+
+then:
+```bash
+xcode-select --install
+```
+
+## Package Manager installation
+### Homebrew (Mac)
+```bash
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+### Update apt (Ubuntu)
+```bash
+sudo apt update
+sudo apt upgrade
+```
+### Chocolatey (Windows)
+```cmd
+@"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
+```
+
+## Cmake
+### Ubuntu
+```bash
+sudo apt install build-essential cmake
+```
+
+### Windows
+```cmd
+choco install cmake -Y
+```
+
+## Python 3.3+ with PIP
+*I strongly recomend you to know about (and maybe use) [Virtual Enviroments](https://www.geeksforgeeks.org/python-virtual-environment/)
+
+### MacOS
+```bash
+brew install python3
+```
+*[more details..](https://wsvincent.com/install-python3-mac/)
+### Ubuntu
+```bash
+sudo apt install python3 python3-pip
+```
+### Windows
+```cmd
+choco install python3 -Y
+```
+## OpenCV
+Install this module from pypi using `pip3`:
+```bash
+pip3 install opencv-contrib-python
+```
+*[Complete Tutorial from pyimagesearch](https://www.pyimagesearch.com/2018/09/19/pip-install-opencv/)
+
+## DLib + Face Recognition (ageitgey)  
+### MacOS or Linux
+```bash
+pip3 install dlib
+```
+*[How to install dlib from source on macOS or Ubuntu](https://gist.github.com/ageitgey/629d75c1baac34dfa5ca2a1928a7aeaf)
 
 Then, install this module from pypi using `pip3`:
 
 ```bash
 pip3 install face_recognition
 ```
-#### Installing on Windows
 
+### Windows
 While Windows isn't officially supported, helpful users have posted instructions on how to install this library:
   * [@masoudr's Windows 10 installation guide (dlib + face_recognition)](https://github.com/ageitgey/face_recognition/issues/175#issue-257710508)
   
 ## Arduino control with pyFirmata (complete version)
 You will need an Arduino Board like Uno, Mega, Micro, Nano with a relay module to control the access.
+
 Install Arduino IDE and use the Example Firmata > StandardFirmata on the board.
 The board need to stay connected by USB.
 All the GPIO controll will be done by the python code.
 
-Python 3 lib:
+### pip command
 ```bash
 pip3 install pyFirmata
 ```
 
 ## Google Text 2 Speech (complete version)
-Python 3 lib:
+### pip command
 ```bash
 pip3 install gTTS
 ```
 
 ## QR-Code (complete version)
-macOS users can simply install using Homebrew
+### MacOS
 ```bash
 brew install zbar
 ```
-Ubuntu users can install using
+### Ubuntu
 ```bash
 sudo apt-get install libzbar-dev libzbar0
 ```
-Python 3 lib:
+### Windows
+```cmd
+choco install zbar -Y
+```
+### pip command
 ```bash
 pip3 install pyzbar
 ```
@@ -131,15 +195,24 @@ pip3 install pyzbar
 You will need generate keys to use this lib.
 [Official instructions] (https://developers.chirp.io/docs/getting-started/python)
 
-macOS users can simply install using Homebrew
+### MacOS
 ```bash
 brew install portaudio libsndfile
 ```
-Ubuntu users can install using
+### Ubuntu
 ```bash
 sudo apt-get install python3-dev python3-setuptools portaudio19-dev libffi-dev libsndfile1
 ```
-Python 3 lib:
+### Windows
+* Download sounddevice (last whl file version) from the link below
+https://www.lfd.uci.edu/~gohlke/pythonlibs/#sounddevice
+* From the file path:
+```cmd
+pip3 install sounddevice_file_name.whl
+```
+*Replace the file name with the same of the downloaded file
+
+### pip command
 ```bash
 pip3 install chirpsdk
 ```

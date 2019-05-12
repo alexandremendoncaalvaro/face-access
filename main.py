@@ -6,7 +6,7 @@ from video_frame import *
 
 def main():
     setup()
-    video_loop()
+    looping_video()
     video.finish()
 
 
@@ -15,27 +15,23 @@ def setup():
     thread_cli.start()
 
 
-def video_loop():
-    while True:
+def looping_video():
+    keep_looping = True
+    while keep_looping:
         frame = video.get_frame()
         processed_frame = video_frame.process_frame(frame)
         if video_frame.are_there_recognized_faces:
             give_access()
 
         video.update_window(processed_frame)
-
-        if video.stop_when_key_press('q'):
-            break
-        if not thread_cli.is_alive():
-            break
+        keep_looping = thread_cli.is_alive() and not video.stop_when_key_press('q')
 
 
-def cli_loop():
-    while True:
+def looping_cli():
+    keep_looping = True
+    while keep_looping:
         command = input("CMD: ")
         keep_looping = execute_command(command)
-        if not keep_looping:
-            break
 
 
 def execute_command(command):
@@ -99,21 +95,23 @@ def add_face_from_current_frame():
     image_path = 'face_image.jpg'
     return image_path
 
+
 def give_access():
     global thread_grant_access
     if not thread_grant_access.is_alive():
         thread_grant_access = threading.Thread(target=grant_access)
         thread_grant_access.start()
 
+
 def grant_access():
     print('Acesso liberado!')
     print('CMD: ')
-
     time.sleep(10)
+
 
 video = Video()
 image = Image()
 video_frame = Frame()
-thread_cli = threading.Thread(target=cli_loop)
+thread_cli = threading.Thread(target=looping_cli)
 thread_grant_access = threading.Thread(target=grant_access)
 main()
