@@ -1,8 +1,9 @@
 import threading
 import time
-import pyautogui
 from video import Image, Video
 from video_frame import *
+
+LIBERATION_TIME_S = 30
 
 
 def main():
@@ -110,8 +111,19 @@ def give_access():
 def grant_access():
     print()
     print('Acesso liberado!')
-    pyautogui.press('enter')
-    time.sleep(30)
+    print()
+    print('CMD: ', end='', flush=True)
+    video_frame.face_rectangle_color = FaceRectangleColor.liberated
+    global thread_cli
+    end_access_time = time.time() + LIBERATION_TIME_S
+    still_wait = True
+    while still_wait:
+        liberation_finished = time.time() >= end_access_time
+        if not thread_cli.is_alive() or liberation_finished:
+            still_wait = False
+    video_frame.face_rectangle_color = FaceRectangleColor.default
+    video_frame.who_liberate = ''
+
 
 
 video = Video()

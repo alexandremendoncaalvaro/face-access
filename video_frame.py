@@ -12,6 +12,11 @@ UNKNOW_FACE_TEXT = 'Desconhecido'
 TEMP_FACE_IMAGE_FILENAME = 'face_image.jpg'
 
 
+class FaceRectangleColor:
+    default = (255, 255, 255)
+    liberated = (0, 255, 0)
+
+
 class FaceDetectionMethod:
     fastest = 'haarcascade'
     default = 'hog'
@@ -38,6 +43,8 @@ class Frame():
     def __init__(self):
         self.current_non_processed_frame = 0
         self.are_there_recognized_faces = False
+        self.face_rectangle_color = FaceRectangleColor.default
+        self.who_liberate = ''
 
     def process_frame(self, frame):
         qr_codes, frame = qr_code.get_qr_codes(frame)
@@ -69,9 +76,13 @@ class Frame():
             FrameFaces.images.append(face_image)
 
             cv2.rectangle(frame, (left, top),
-                          (right, bottom), (255, 255, 255), 2)
+                          (right, bottom), self.face_rectangle_color, 2)
             cv2.putText(frame, name, (left + 1, bottom + 25),
-                        font, font_size, (255, 255, 255), 1)
+                        font, font_size, self.face_rectangle_color, 1)
+
+        if self.face_rectangle_color == FaceRectangleColor.liberated:
+            cv2.putText(frame, 'Acesso liberado por ' + self.who_liberate, (20, 20),
+                        font, font_size, self.face_rectangle_color, 1)
 
         return frame
 
@@ -121,6 +132,9 @@ class Frame():
         FrameFaces.names = face_names
         recognized_faces = [x for x in face_names if x != "Desconhecido"]
         self.are_there_recognized_faces = len(recognized_faces) > 0
+        if self.are_there_recognized_faces:
+            self.who_liberate = recognized_faces[0]
+
 
     def get_faces(self, frame):
         if LOCATE_FACES_IN_EVERY_FRAME:
