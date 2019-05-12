@@ -2,7 +2,6 @@ import cv2
 import dlib
 import face_recognition
 import numpy as np
-# from PIL import ImageFont, ImageDraw, Image as PilImage
 from facial_id import *
 from temp_access import *
 
@@ -47,7 +46,6 @@ class Frame():
         self.are_there_recognized_faces = False
         self.face_rectangle_color = FaceRectangleColor.default
         self.who_liberate = ''
-        # self.font_truetype = ImageFont.truetype("FUTURA.ttf", 50)
         self.font = cv2.FONT_HERSHEY_DUPLEX
         self.font_size = 0.8
 
@@ -83,14 +81,6 @@ class Frame():
                           (right, bottom), color, 2)
             cv2.putText(frame, name, (left + 1, bottom + 25),
                         self.font, self.font_size, color, 1)
-
-        # if self.face_rectangle_color == FaceRectangleColor.liberated:
-        #     cv2_im_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        #     pil_im = PilImage.fromarray(cv2_im_rgb)
-        #     draw = ImageDraw.Draw(pil_im)
-        #     draw.text((10, 20), 'Acesso liberado por ' + self.who_liberate,
-        #               font=self.font_truetype, fill=self.face_rectangle_color)
-        #     frame = cv2.cvtColor(np.array(pil_im), cv2.COLOR_RGB2BGR)
 
         return frame
 
