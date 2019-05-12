@@ -1,6 +1,8 @@
 import cv2
 import dlib
 import face_recognition
+import numpy as np
+# from PIL import ImageFont, ImageDraw, Image as PilImage
 from facial_id import *
 from temp_access import *
 
@@ -45,6 +47,9 @@ class Frame():
         self.are_there_recognized_faces = False
         self.face_rectangle_color = FaceRectangleColor.default
         self.who_liberate = ''
+        # self.font_truetype = ImageFont.truetype("FUTURA.ttf", 50)
+        self.font = cv2.FONT_HERSHEY_DUPLEX
+        self.font_size = 0.8
 
     def process_frame(self, frame):
         qr_codes, frame = qr_code.get_qr_codes(frame)
@@ -59,11 +64,6 @@ class Frame():
         return rgb_small_frame
 
     def paint_faces_rect(self, frame):
-        font = cv2.FONT_HERSHEY_DUPLEX
-        font_size = 0.8
-
-        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2BGRA)
-
         FrameFaces.images = []
 
         for (top, right, bottom, left), name in zip(FrameFaces.locations, FrameFaces.names):
@@ -75,14 +75,22 @@ class Frame():
             face_image = frame[top:bottom, left:right]
             FrameFaces.images.append(face_image)
 
-            cv2.rectangle(frame, (left, top),
-                          (right, bottom), self.face_rectangle_color, 2)
-            cv2.putText(frame, name, (left + 1, bottom + 25),
-                        font, font_size, self.face_rectangle_color, 1)
+            color = FaceRectangleColor.default
+            if self.who_liberate == name:
+                color = self.face_rectangle_color
 
-        if self.face_rectangle_color == FaceRectangleColor.liberated:
-            cv2.putText(frame, 'Acesso liberado por ' + self.who_liberate, (20, 20),
-                        font, font_size, self.face_rectangle_color, 1)
+            cv2.rectangle(frame, (left, top),
+                          (right, bottom), color, 2)
+            cv2.putText(frame, name, (left + 1, bottom + 25),
+                        self.font, self.font_size, color, 1)
+
+        # if self.face_rectangle_color == FaceRectangleColor.liberated:
+        #     cv2_im_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        #     pil_im = PilImage.fromarray(cv2_im_rgb)
+        #     draw = ImageDraw.Draw(pil_im)
+        #     draw.text((10, 20), 'Acesso liberado por ' + self.who_liberate,
+        #               font=self.font_truetype, fill=self.face_rectangle_color)
+        #     frame = cv2.cvtColor(np.array(pil_im), cv2.COLOR_RGB2BGR)
 
         return frame
 
@@ -134,7 +142,6 @@ class Frame():
         self.are_there_recognized_faces = len(recognized_faces) > 0
         if self.are_there_recognized_faces:
             self.who_liberate = recognized_faces[0]
-
 
     def get_faces(self, frame):
         if LOCATE_FACES_IN_EVERY_FRAME:
