@@ -92,7 +92,7 @@ def add_face_from_file_path(commands):
 
 def add_face_from_current_frame():
     video_frame.save_current_face()
-    image_path = 'face_image.jpg'
+    image_path = TEMP_FACE_IMAGE_FILENAME
     return image_path
 
 

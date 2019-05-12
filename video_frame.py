@@ -80,8 +80,7 @@ class Frame():
         while try_again:
             try:
                 if len(FrameFaces.images) > 0:
-                    cv2.imwrite(TEMP_FACE_IMAGE_FILENAME,
-                                FrameFaces.images[0])
+                    cv2.imwrite(TEMP_FACE_IMAGE_FILENAME, FrameFaces.images[0])
                 try_again = False
             except:
                 try_again = True
@@ -97,7 +96,8 @@ class Frame():
             face_locations = face_recognition.face_locations(
                 rgb_small_frame, 1, 'cnn')
         elif FACE_DETECTION_METHOD == FaceDetectionMethod.fastest:
-            gray_small_frame = cv2.cvtColor(rgb_small_frame, cv2.COLOR_BGR2GRAY)
+            gray_small_frame = cv2.cvtColor(
+                rgb_small_frame, cv2.COLOR_BGR2GRAY)
             face_rect = haar_cascade_face.detectMultiScale(
                 gray_small_frame, scaleFactor=1.2, minNeighbors=5)
             for (x, y, w, h) in face_rect:
