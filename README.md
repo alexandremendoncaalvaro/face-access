@@ -31,6 +31,7 @@ If everything is right, a new window with the webcam streaming and face recognit
 In the terminal you should see somethong like: 
 
 **CMD:**
+
 *Don't use spaces between parameters, only between firstname, midlename, lastname..
 
 ### Where you can do some actions like:
