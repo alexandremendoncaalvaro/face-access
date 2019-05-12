@@ -31,10 +31,9 @@ If everything is right, a new window with the webcam streaming and face recognit
 In the terminal you should see somethong like: 
 
 **CMD:**
-
-### Where you can do some actions like:
 *Don't use spaces between parameters, only between firstname, midlename, lastname..
 
+### Where you can do some actions like:
 **Add a new face id from a image file in the folder images:**
 ```bash
 add,Joseph Smith,images/joseph.jpg
