@@ -1,5 +1,6 @@
 import threading
 import time
+import pyautogui
 from video import Image, Video
 from video_frame import *
 
@@ -80,6 +81,9 @@ def execute_command(command):
         else:
             print('Chave inválida!')
 
+    elif command == '':
+        pass
+
     else:
         print('Comando não identificado!')
 
@@ -104,8 +108,9 @@ def give_access():
 
 
 def grant_access():
+    print()
     print('Acesso liberado!')
-    print('CMD: ')
+    pyautogui.press('enter')
     time.sleep(30)
 
 

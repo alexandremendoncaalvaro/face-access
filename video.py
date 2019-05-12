@@ -21,13 +21,16 @@ class Image():
 class Video():
     def __init__(self):
         self._video_capture = cv2.VideoCapture(0)
+        self._window_name = "Video"
+        cv2.namedWindow(self._window_name,cv2.WINDOW_AUTOSIZE)
+        cv2.moveWindow(self._window_name, 0, 0)
 
     def get_frame(self):
         ret, frame = self._video_capture.read()
         return frame
 
     def update_window(self, frame):
-        cv2.imshow('Video', frame)
+        cv2.imshow(self._window_name, frame)
    
     def stop_when_key_press(self, key):
         stop = False
