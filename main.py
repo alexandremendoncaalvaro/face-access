@@ -106,7 +106,7 @@ def give_access():
 def grant_access():
     print('Acesso liberado!')
     print('CMD: ')
-    time.sleep(10)
+    time.sleep(30)
 
 
 video = Video()

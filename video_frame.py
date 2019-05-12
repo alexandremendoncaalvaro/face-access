@@ -1,24 +1,38 @@
 import cv2
+import dlib
 import face_recognition
 from facial_id import *
 from temp_access import *
 
-MAX_FACE_DISTANCE = .4
-PROCESSED_FRAME_SHRINK_FACTOR = 5
-LOCATE_FACES_EVERY_FRAME = True
+MAX_FACES_DISTANCE = .4  # 0.0 to 1.0
+PROCESSED_FRAME_SHRINK_FACTOR = 5  # To improve performance
+LOCATE_FACES_IN_EVERY_FRAME = True
 RECOGNIZE_FACES_EVERY_N_FRAME = 10
 UNKNOW_FACE_TEXT = 'Desconhecido'
 TEMP_FACE_IMAGE_FILENAME = 'face_image.jpg'
 
+
+class FaceDetectionMethod:
+    fastest = 'haarcascade'
+    default = 'hog'
+    precise = 'cnn'
+
+
+FACE_DETECTION_METHOD = FaceDetectionMethod.fastest
+
 facial_id_dataset = FacialIdDataset()
 qr_code = QrCode()
 otp = OneTimePassword()
+haar_cascade_face = cv2.CascadeClassifier(
+    'haarcascades/haarcascade_frontalface_alt2.xml')
+
 
 class FrameFaces():
     locations = []
     encodings = []
     names = []
     images = []
+
 
 class Frame():
     def __init__(self):
@@ -27,7 +41,7 @@ class Frame():
 
     def process_frame(self, frame):
         qr_codes, frame = qr_code.get_qr_codes(frame)
-        self.process_faces(frame)
+        self.get_faces(frame)
         painted_frame = self.paint_faces_rect(frame)
         return painted_frame
 
@@ -61,7 +75,6 @@ class Frame():
 
         return frame
 
-
     def save_current_face(self):
         try_again = True
         while try_again:
@@ -75,7 +88,21 @@ class Frame():
 
     def locate_faces(self, frame):
         rgb_small_frame = self.to_rgb_small_frame(frame)
-        face_locations = face_recognition.face_locations(rgb_small_frame)
+        face_locations = []
+
+        if FACE_DETECTION_METHOD == FaceDetectionMethod.default:
+            face_locations = face_recognition.face_locations(
+                rgb_small_frame, 1, 'hog')
+        elif FACE_DETECTION_METHOD == FaceDetectionMethod.precise:
+            face_locations = face_recognition.face_locations(
+                rgb_small_frame, 1, 'cnn')
+        elif FACE_DETECTION_METHOD == FaceDetectionMethod.fastest:
+            gray_small_frame = cv2.cvtColor(rgb_small_frame, cv2.COLOR_BGR2GRAY)
+            face_rect = haar_cascade_face.detectMultiScale(
+                gray_small_frame, scaleFactor=1.2, minNeighbors=5)
+            for (x, y, w, h) in face_rect:
+                face_locations = [(y, x + w, y + h, x)]
+
         FrameFaces.locations = face_locations
         FrameFaces.encodings = face_recognition.face_encodings(
             rgb_small_frame, face_locations)
@@ -87,17 +114,16 @@ class Frame():
                 facial_id_dataset.known_face_encodings, face_encoding)
             name = UNKNOW_FACE_TEXT
             for i, face_distance in enumerate(face_distances):
-                if face_distance < MAX_FACE_DISTANCE:
+                if face_distance < MAX_FACES_DISTANCE:
                     name = facial_id_dataset.known_face_names[i]
-
                     break
             face_names.append(name)
         FrameFaces.names = face_names
         recognized_faces = [x for x in face_names if x != "Desconhecido"]
         self.are_there_recognized_faces = len(recognized_faces) > 0
 
-    def process_faces(self, frame):
-        if LOCATE_FACES_EVERY_FRAME:
+    def get_faces(self, frame):
+        if LOCATE_FACES_IN_EVERY_FRAME:
             self.locate_faces(frame)
 
         self.current_non_processed_frame += 1
@@ -105,6 +131,6 @@ class Frame():
         should_process_this_frame = self.current_non_processed_frame >= RECOGNIZE_FACES_EVERY_N_FRAME
         if should_process_this_frame:
             self.current_non_processed_frame = 0
-            if not LOCATE_FACES_EVERY_FRAME:
+            if not LOCATE_FACES_IN_EVERY_FRAME:
                 self.locate_faces(frame)
             self.recognize_faces()
