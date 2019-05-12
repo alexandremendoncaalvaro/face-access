@@ -15,8 +15,8 @@ Basic example of access control with face recognition
 - [ ] Audio code (CHIRP) to easy registration and temporary access
 
 ### Improvements
-- [ ] Multithread support
-- [ ] GPU support
+- [x] Multithread support
+- [x] GPU support
 
 ![](face_access_add_demo.gif)
 
