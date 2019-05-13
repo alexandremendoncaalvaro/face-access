@@ -5,9 +5,9 @@ import numpy as np
 from facial_id import *
 from temp_access import *
 
-MAX_FACES_DISTANCE = .4  # 0.0 to 1.0
-PROCESSED_FRAME_SHRINK_FACTOR = 5  # To improve performance
-LOCATE_FACES_IN_EVERY_FRAME = True
+MAX_FACES_DISTANCE = .5  # 0.0 to 1.0
+PROCESSED_FRAME_SHRINK_FACTOR = 5
+PROCESS_FACES_IN_EVERY_FRAME = False
 RECOGNIZE_FACES_EVERY_N_FRAME = 10
 UNKNOW_FACE_TEXT = 'Desconhecido'
 TEMP_FACE_IMAGE_FILENAME = 'face_image.jpg'
@@ -24,9 +24,10 @@ class FaceDetectionMethod:
     precise = 'cnn'
 
 
-FACE_DETECTION_METHOD = FaceDetectionMethod.fastest
+FACE_DETECTION_METHOD = FaceDetectionMethod.precise
 
 facial_id_dataset = FacialIdDataset()
+crypt = Crypt()
 qr_code = QrCode()
 otp = OneTimePassword()
 haar_cascade_face = cv2.CascadeClassifier(
@@ -110,7 +111,7 @@ class Frame():
             face_rect = haar_cascade_face.detectMultiScale(
                 gray_small_frame, scaleFactor=1.2, minNeighbors=5)
             for (x, y, w, h) in face_rect:
-                face_locations = [(y, x + w, y + h, x)]
+                face_locations.append((y, x + w, y + h, x))
 
         FrameFaces.locations = face_locations
         FrameFaces.encodings = face_recognition.face_encodings(
@@ -126,7 +127,7 @@ class Frame():
                 if face_distance < MAX_FACES_DISTANCE:
                     name = facial_id_dataset.known_face_names[i]
                     break
-            face_names.append(name)
+            face_names.append(name) 
         FrameFaces.names = face_names
         recognized_faces = [x for x in face_names if x != "Desconhecido"]
         self.are_there_recognized_faces = len(recognized_faces) > 0
@@ -134,14 +135,13 @@ class Frame():
             self.who_liberate = recognized_faces[0]
 
     def get_faces(self, frame):
-        if LOCATE_FACES_IN_EVERY_FRAME:
+        if PROCESS_FACES_IN_EVERY_FRAME:
             self.locate_faces(frame)
-
-        self.current_non_processed_frame += 1
-
-        should_process_this_frame = self.current_non_processed_frame >= RECOGNIZE_FACES_EVERY_N_FRAME
-        if should_process_this_frame:
-            self.current_non_processed_frame = 0
-            if not LOCATE_FACES_IN_EVERY_FRAME:
-                self.locate_faces(frame)
             self.recognize_faces()
+        else:
+            self.current_non_processed_frame += 1
+            should_process_this_frame = self.current_non_processed_frame >= RECOGNIZE_FACES_EVERY_N_FRAME
+            if should_process_this_frame:
+                self.current_non_processed_frame = 0
+                self.locate_faces(frame)
+                self.recognize_faces()

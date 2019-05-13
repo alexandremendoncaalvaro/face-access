@@ -155,7 +155,7 @@ pip3 install face_recognition
 While Windows isn't officially supported, helpful users have posted instructions on how to install this library:
   * [@masoudr's Windows 10 installation guide (dlib + face_recognition)](https://github.com/ageitgey/face_recognition/issues/175#issue-257710508)
   
-## Arduino control with pyFirmata (complete version)
+## Arduino control with pyFirmata
 You will need an Arduino Board like Uno, Mega, Micro, Nano with a relay module to control the access.
 
 Install Arduino IDE and use the Example Firmata > StandardFirmata on the board.
@@ -167,13 +167,19 @@ All the GPIO controll will be done by the python code.
 pip3 install pyFirmata
 ```
 
-## Google Text 2 Speech (complete version)
+## Google Text 2 Speech
 ### pip command
 ```bash
 pip3 install gTTS
 ```
 
-## QR-Code (complete version)
+## Google One Time Password (Google Authenticator)
+### pip command
+```bash
+pip3 install pyotp
+```
+
+## QR-Code
 ### MacOS
 ```bash
 brew install zbar
@@ -191,7 +197,7 @@ choco install zbar -Y
 pip3 install pyzbar
 ```
 
-## Audio Code - CHIRP (complete version)
+## Audio Code - CHIRP
 You will need generate keys to use this lib.
 [Official instructions] (https://developers.chirp.io/docs/getting-started/python)
 

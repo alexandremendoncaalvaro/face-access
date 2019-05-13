@@ -82,6 +82,13 @@ def execute_command(command):
         else:
             print('Chave inválida!')
 
+    elif command.find('encrypt') > -1:
+        message = command[1]
+        cipher = crypt.encrypt_message(message)
+        print(cipher)
+        result = crypt.decrypt_message(cipher)
+        print(result)
+
     elif command == '':
         pass
 
