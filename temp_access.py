@@ -1,8 +1,6 @@
 from pyzbar import pyzbar
 import cv2
 import pyotp
-from binascii import hexlify, unhexlify
-from simplecrypt import encrypt, decrypt
 
 BASE_32_KEY = 'XCOBLUBMMAJND2GY'
 
@@ -16,18 +14,6 @@ class OneTimePassword():
     def verify(self, verification_key):
         result = self.totp.verify(verification_key)
         return result
-
-# TODO Find the right way to do that
-class Crypt():
-    def encrypt_message(self, message):
-        cipher = encrypt(BASE_32_KEY, message)
-        # hex_cipher = hexlify(cipher)
-        return cipher
-
-    def decrypt_message(self, cipher):
-        # cipher = unhexlify(hex_cipher)
-        message = decrypt(BASE_32_KEY, cipher)
-        return message
 
 
 class QrCode():

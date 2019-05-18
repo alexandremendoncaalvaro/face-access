@@ -5,6 +5,10 @@ from video_frame import *
 
 LIBERATION_TIME_S = 30
 
+video = Video()
+image = Image()
+video_frame = Frame()
+
 
 def main():
     setup()
@@ -34,6 +38,9 @@ def looping_cli():
     while keep_looping:
         command = input("CMD: ")
         keep_looping = execute_command(command)
+
+
+thread_cli = threading.Thread(target=looping_cli)
 
 
 def execute_command(command):
@@ -84,10 +91,6 @@ def execute_command(command):
 
     elif command.find('encrypt') > -1:
         message = command[1]
-        cipher = crypt.encrypt_message(message)
-        print(cipher)
-        result = crypt.decrypt_message(cipher)
-        print(result)
 
     elif command == '':
         pass
@@ -108,13 +111,6 @@ def add_face_from_current_frame():
     return image_path
 
 
-def give_access():
-    global thread_grant_access
-    if not thread_grant_access.is_alive():
-        thread_grant_access = threading.Thread(target=grant_access)
-        thread_grant_access.start()
-
-
 def grant_access():
     print()
     print('Acesso liberado!')
@@ -132,10 +128,15 @@ def grant_access():
     video_frame.who_liberate = ''
 
 
-
-video = Video()
-image = Image()
-video_frame = Frame()
-thread_cli = threading.Thread(target=looping_cli)
 thread_grant_access = threading.Thread(target=grant_access)
-main()
+
+
+def give_access():
+    global thread_grant_access
+    if not thread_grant_access.is_alive():
+        thread_grant_access = threading.Thread(target=grant_access)
+        thread_grant_access.start()
+
+
+if __name__ == "__main__":
+    main()

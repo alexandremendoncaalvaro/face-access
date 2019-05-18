@@ -27,7 +27,6 @@ class FaceDetectionMethod:
 FACE_DETECTION_METHOD = FaceDetectionMethod.precise
 
 facial_id_dataset = FacialIdDataset()
-crypt = Crypt()
 qr_code = QrCode()
 otp = OneTimePassword()
 haar_cascade_face = cv2.CascadeClassifier(
