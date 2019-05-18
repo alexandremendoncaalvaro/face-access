@@ -36,7 +36,7 @@ def looping_video():
 def looping_cli():
     keep_looping = True
     while keep_looping:
-        command = input("CMD: ")
+        command = input('CMD: ')
         keep_looping = execute_command(command)
 
 
@@ -138,5 +138,5 @@ def give_access():
         thread_grant_access.start()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

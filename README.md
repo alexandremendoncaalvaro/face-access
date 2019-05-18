@@ -23,7 +23,7 @@ Basic example of access control with face recognition
 ## After installation
 To start, with terminal go to folder path and execute:
 ```bash
-python3 main.py
+python main.py
 ```
 
 ## CLI commands:
@@ -74,7 +74,7 @@ For complete version (already tested but not implemented yet):
 
 # Installation
 ## Requirements
-  * Python 3.3+
+  * Python 3.6+
   * Cmake(Linux and Windows) or XCode (MacOS)
   * MacOS or Linux (Tested with Ubuntu 18.04).
     * Windows not officially supported by DLib and Face Recoginition library, but might work (slowly)
@@ -115,7 +115,7 @@ sudo apt install build-essential cmake
 choco install cmake -Y
 ```
 
-## Python 3.3+ with PIP
+## Python 3.6+ with PIP
 *I strongly recomend you to know about (and maybe use) [Virtual Enviroments](https://www.geeksforgeeks.org/python-virtual-environment/)
 
 ### MacOS
@@ -132,23 +132,23 @@ sudo apt install python3 python3-pip
 choco install python3 -Y
 ```
 ## OpenCV
-Install this module from pypi using `pip3`:
+Install this module from pypi using `pip`:
 ```bash
-pip3 install opencv-contrib-python
+pip install opencv-contrib-python
 ```
 *[Complete Tutorial from pyimagesearch](https://www.pyimagesearch.com/2018/09/19/pip-install-opencv/)
 
 ## DLib + Face Recognition (ageitgey)  
 ### MacOS or Linux
 ```bash
-pip3 install dlib
+pip install dlib
 ```
 *[How to install dlib from source on macOS or Ubuntu](https://gist.github.com/ageitgey/629d75c1baac34dfa5ca2a1928a7aeaf)
 
-Then, install this module from pypi using `pip3`:
+Then, install this module from pypi using `pip`:
 
 ```bash
-pip3 install face_recognition
+pip install face_recognition
 ```
 
 ### Windows
@@ -164,19 +164,19 @@ All the GPIO controll will be done by the python code.
 
 ### pip command
 ```bash
-pip3 install pyFirmata
+pip install pyFirmata
 ```
 
 ## Google Text 2 Speech
 ### pip command
 ```bash
-pip3 install gTTS
+pip install gTTS
 ```
 
 ## Google One Time Password (Google Authenticator)
 ### pip command
 ```bash
-pip3 install pyotp
+pip install pyotp
 ```
 
 ## QR-Code
@@ -194,7 +194,7 @@ choco install zbar -Y
 ```
 ### pip command
 ```bash
-pip3 install pyzbar
+pip install pyzbar
 ```
 
 ## Audio Code - CHIRP
@@ -214,11 +214,11 @@ sudo apt-get install python3-dev python3-setuptools portaudio19-dev libffi-dev l
 https://www.lfd.uci.edu/~gohlke/pythonlibs/#sounddevice
 * From the file path:
 ```cmd
-pip3 install sounddevice_file_name.whl
+pip install sounddevice_file_name.whl
 ```
 *Replace the file name with the same of the downloaded file
 
 ### pip command
 ```bash
-pip3 install chirpsdk
+pip install chirpsdk
 ```

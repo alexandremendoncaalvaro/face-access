@@ -18,7 +18,7 @@ class FacialIdDataset():
 
             self.update()
         except:
-            print(DATASET_FILENAME + ' file not found!')
+            print(f'{DATASET_FILENAME} file not found!')
 
     def add(self, name, image_path):
         self.load()

@@ -128,7 +128,7 @@ class Frame():
                     break
             face_names.append(name) 
         FrameFaces.names = face_names
-        recognized_faces = [x for x in face_names if x != "Desconhecido"]
+        recognized_faces = [x for x in face_names if x != 'Desconhecido']
         self.are_there_recognized_faces = len(recognized_faces) > 0
         if self.are_there_recognized_faces:
             self.who_liberate = recognized_faces[0]
