@@ -134,21 +134,21 @@ choco install python3 -Y
 ## OpenCV
 Install this module from pypi using `pip`:
 ```bash
-pip install opencv-contrib-python
+pip3 install opencv-contrib-python
 ```
 *[Complete Tutorial from pyimagesearch](https://www.pyimagesearch.com/2018/09/19/pip-install-opencv/)
 
 ## DLib + Face Recognition (ageitgey)  
 ### MacOS or Linux
 ```bash
-pip install dlib
+pip3 install dlib
 ```
 *[How to install dlib from source on macOS or Ubuntu](https://gist.github.com/ageitgey/629d75c1baac34dfa5ca2a1928a7aeaf)
 
 Then, install this module from pypi using `pip`:
 
 ```bash
-pip install face_recognition
+pip3 install face_recognition
 ```
 
 ### Windows
@@ -164,19 +164,19 @@ All the GPIO controll will be done by the python code.
 
 ### pip command
 ```bash
-pip install pyFirmata
+pip3 install pyFirmata
 ```
 
 ## Google Text 2 Speech
 ### pip command
 ```bash
-pip install gTTS
+pip3 install gTTS
 ```
 
 ## Google One Time Password (Google Authenticator)
 ### pip command
 ```bash
-pip install pyotp
+pip3 install pyotp
 ```
 
 ## QR-Code
@@ -194,7 +194,7 @@ choco install zbar -Y
 ```
 ### pip command
 ```bash
-pip install pyzbar
+pip3 install pyzbar
 ```
 
 ## Audio Code - CHIRP
@@ -220,5 +220,5 @@ pip install sounddevice_file_name.whl
 
 ### pip command
 ```bash
-pip install chirpsdk
+pip3 install chirpsdk
 ```
