@@ -4,12 +4,12 @@ import pickle
 
 DATASET_FILENAME = 'dataset.dat'
 
-
 class FacialIdDataset():
     def __init__(self):
         self.known_face_names = []
         self.known_face_encodings = []
         self.all_face_encodings = {}
+        self.realtime_face_encodings = []
 
     def load(self):
         try:
@@ -20,8 +20,13 @@ class FacialIdDataset():
         except:
             print(f'{DATASET_FILENAME} file not found!')
 
-    def add(self, name, image_path):
+    def add(self, name):
         self.load()
+        realtime_face_encoding = self.realtime_face_encodings[0]
+        self.all_face_encodings[name] = realtime_face_encoding
+        self.save()
+    
+    def addFromFile(self, name, image_path):
         loaded_image = face_recognition.load_image_file(image_path)
         face_encoding = face_recognition.face_encodings(loaded_image)[0]
         self.all_face_encodings[name] = face_encoding

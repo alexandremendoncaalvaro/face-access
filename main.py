@@ -56,23 +56,21 @@ def execute_command(command):
     elif command in ['print', 'faces', 'names', 'ids']:
         facial_id_dataset.print_names()
 
-    elif command.find('add') > -1:
+    elif command[:3] == 'add':
         total_parameters = len(commands)-1
-
         name = commands[1]
 
         # add,firstname lastname,file.jpg
         if total_parameters == 2:
-            face_image = add_face_from_file_path(commands)
-
+            face_image = commands[2]
+            facial_id_dataset.addFromFile(name, face_image)
         # add,firstname lastname
         elif total_parameters == 1:
-            face_image = add_face_from_current_frame()
+            facial_id_dataset.add(name)
 
-        facial_id_dataset.add(name, face_image)
         facial_id_dataset.print_names()
 
-    elif command.find('del') > -1 or command.find('rem') > -1:
+    elif command[:3] == 'del' or command[:3] == 'rem':
         name = commands[1]
         facial_id_dataset.remove(name)
         facial_id_dataset.print_names()
@@ -81,7 +79,7 @@ def execute_command(command):
         result = otp.get_new_base32_key()
         print(result)
 
-    elif command.find('password') > -1:
+    elif command[:8] == 'password':
         key = commands[1]
         result = otp.verify(key)
         if result:
@@ -89,7 +87,7 @@ def execute_command(command):
         else:
             print('Chave inválida!')
 
-    elif command.find('encrypt') > -1:
+    elif command[:7] == 'encrypt':
         message = command[1]
 
     elif command == '':
@@ -99,16 +97,6 @@ def execute_command(command):
         print('Comando não identificado!')
 
     return keep_looping
-
-
-def add_face_from_file_path(commands):
-    return commands[2]
-
-
-def add_face_from_current_frame():
-    video_frame.save_current_face()
-    image_path = TEMP_FACE_IMAGE_FILENAME
-    return image_path
 
 
 def grant_access():

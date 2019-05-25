@@ -113,3 +113,6 @@ venv.bak/
 # project ignored files
 dataset.dat
 face_image.jpg
+
+#virtual enviroment
+cv

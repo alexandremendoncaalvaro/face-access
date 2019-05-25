@@ -10,7 +10,6 @@ PROCESSED_FRAME_SHRINK_FACTOR = 5
 PROCESS_FACES_IN_EVERY_FRAME = False
 RECOGNIZE_FACES_EVERY_N_FRAME = 10
 UNKNOW_FACE_TEXT = 'Desconhecido'
-TEMP_FACE_IMAGE_FILENAME = 'face_image.jpg'
 
 
 class FaceRectangleColor:
@@ -70,9 +69,6 @@ class Frame():
             bottom *= PROCESSED_FRAME_SHRINK_FACTOR
             left *= PROCESSED_FRAME_SHRINK_FACTOR
 
-            face_image = frame[top:bottom, left:right]
-            FrameFaces.images.append(face_image)
-
             color = FaceRectangleColor.default
             if self.who_liberate == name:
                 color = self.face_rectangle_color
@@ -83,16 +79,6 @@ class Frame():
                         self.font, self.font_size, color, 1)
 
         return frame
-
-    def save_current_face(self):
-        try_again = True
-        while try_again:
-            try:
-                if len(FrameFaces.images) > 0:
-                    cv2.imwrite(TEMP_FACE_IMAGE_FILENAME, FrameFaces.images[0])
-                try_again = False
-            except:
-                try_again = True
 
     def locate_faces(self, frame):
         rgb_small_frame = self.to_rgb_small_frame(frame)
@@ -115,6 +101,8 @@ class Frame():
         FrameFaces.locations = face_locations
         FrameFaces.encodings = face_recognition.face_encodings(
             rgb_small_frame, face_locations)
+        facial_id_dataset.realtime_face_encodings = FrameFaces.encodings
+        
 
     def recognize_faces(self):
         face_names = []
