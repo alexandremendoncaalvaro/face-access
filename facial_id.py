@@ -1,8 +1,8 @@
 import face_recognition
 import numpy as np
 import pickle
+from config import ConfigFacialId
 
-DATASET_FILENAME = 'dataset.dat'
 
 class FacialIdDataset():
     def __init__(self):
@@ -13,12 +13,12 @@ class FacialIdDataset():
 
     def load(self):
         try:
-            with open(DATASET_FILENAME, 'rb') as f:
+            with open(ConfigFacialId.DATASET_FILENAME, 'rb') as f:
                 self.all_face_encodings = pickle.load(f)
 
             self.update()
         except:
-            print(f'{DATASET_FILENAME} file not found!')
+            print(f'{ConfigFacialId.DATASET_FILENAME} file not found!')
 
     def add(self, name):
         self.load()
@@ -45,7 +45,7 @@ class FacialIdDataset():
 
     def save(self):
         self.update()
-        with open(DATASET_FILENAME, 'wb') as f:
+        with open(config.DATASET_FILENAME, 'wb') as f:
             pickle.dump(self.all_face_encodings, f)
 
     def print_names(self):

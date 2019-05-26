@@ -1,12 +1,12 @@
 from pyzbar import pyzbar
 import cv2
 import pyotp
+from config import ConfigTempAccess
 
-BASE_32_KEY = 'XCOBLUBMMAJND2GY'
 
 class OneTimePassword():
     def __init__(self):
-        self.totp = pyotp.TOTP(BASE_32_KEY)
+        self.totp = pyotp.TOTP(ConfigTempAccess.BASE_32_KEY)
 
     def get_new_base32_key(self):
         return pyotp.random_base32()

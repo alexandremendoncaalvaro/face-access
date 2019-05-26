@@ -2,8 +2,8 @@ import threading
 import time
 from video import Image, Video
 from video_frame import *
+from config import ConfigMain
 
-LIBERATION_TIME_S = 30
 
 video = Video()
 image = Image()
@@ -14,7 +14,7 @@ def main():
     setup()
     looping_video()
     video.finish()
-
+    
 
 def setup():
     facial_id_dataset.load()
@@ -104,15 +104,15 @@ def grant_access():
     print('Acesso liberado!')
     print()
     print('CMD: ', end='', flush=True)
-    video_frame.face_rectangle_color = FaceRectangleColor.liberated
+    video_frame.face_rectangle_color = ConfigVideoFrame.FaceRectangleColor.liberated
     global thread_cli
-    end_access_time = time.time() + LIBERATION_TIME_S
+    end_access_time = time.time() + ConfigMain.LIBERATION_TIME_S
     still_wait = True
     while still_wait:
         liberation_finished = time.time() >= end_access_time
         if not thread_cli.is_alive() or liberation_finished:
             still_wait = False
-    video_frame.face_rectangle_color = FaceRectangleColor.default
+    video_frame.face_rectangle_color = ConfigVideoFrame.FaceRectangleColor.default
     video_frame.who_liberate = ''
 
 

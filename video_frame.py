@@ -4,26 +4,8 @@ import face_recognition
 import numpy as np
 from facial_id import *
 from temp_access import *
+from config import ConfigVideoFrame
 
-MAX_FACES_DISTANCE = .5  # 0.0 to 1.0
-PROCESSED_FRAME_SHRINK_FACTOR = 5
-PROCESS_FACES_IN_EVERY_FRAME = False
-RECOGNIZE_FACES_EVERY_N_FRAME = 10
-UNKNOW_FACE_TEXT = 'Desconhecido'
-
-
-class FaceRectangleColor:
-    default = (255, 255, 255)
-    liberated = (0, 255, 0)
-
-
-class FaceDetectionMethod:
-    fastest = 'haarcascade'
-    default = 'hog'
-    precise = 'cnn'
-
-
-FACE_DETECTION_METHOD = FaceDetectionMethod.precise
 
 facial_id_dataset = FacialIdDataset()
 qr_code = QrCode()
@@ -43,10 +25,11 @@ class Frame():
     def __init__(self):
         self.current_non_processed_frame = 0
         self.are_there_recognized_faces = False
-        self.face_rectangle_color = FaceRectangleColor.default
+        self.face_rectangle_color = ConfigVideoFrame.FaceRectangleColor.default
         self.who_liberate = ''
         self.font = cv2.FONT_HERSHEY_DUPLEX
         self.font_size = 0.8
+
 
     def process_frame(self, frame):
         qr_codes, frame = qr_code.get_qr_codes(frame)
@@ -56,7 +39,7 @@ class Frame():
 
     def to_rgb_small_frame(self, frame):
         small_frame = cv2.resize(
-            frame, (0, 0), fx=1/PROCESSED_FRAME_SHRINK_FACTOR, fy=1/PROCESSED_FRAME_SHRINK_FACTOR)
+            frame, (0, 0), fx=1/ConfigVideoFrame.PROCESSED_FRAME_SHRINK_FACTOR, fy=1/ConfigVideoFrame.PROCESSED_FRAME_SHRINK_FACTOR)
         rgb_small_frame = small_frame[:, :, ::-1]
         return rgb_small_frame
 
@@ -64,12 +47,12 @@ class Frame():
         FrameFaces.images = []
 
         for (top, right, bottom, left), name in zip(FrameFaces.locations, FrameFaces.names):
-            top *= PROCESSED_FRAME_SHRINK_FACTOR
-            right *= PROCESSED_FRAME_SHRINK_FACTOR
-            bottom *= PROCESSED_FRAME_SHRINK_FACTOR
-            left *= PROCESSED_FRAME_SHRINK_FACTOR
+            top *= ConfigVideoFrame.PROCESSED_FRAME_SHRINK_FACTOR
+            right *= ConfigVideoFrame.PROCESSED_FRAME_SHRINK_FACTOR
+            bottom *= ConfigVideoFrame.PROCESSED_FRAME_SHRINK_FACTOR
+            left *= ConfigVideoFrame.PROCESSED_FRAME_SHRINK_FACTOR
 
-            color = FaceRectangleColor.default
+            color = ConfigVideoFrame.FaceRectangleColor.default
             if self.who_liberate == name:
                 color = self.face_rectangle_color
 
@@ -84,19 +67,16 @@ class Frame():
         rgb_small_frame = self.to_rgb_small_frame(frame)
         face_locations = []
 
-        if FACE_DETECTION_METHOD == FaceDetectionMethod.default:
-            face_locations = face_recognition.face_locations(
-                rgb_small_frame, 1, 'hog')
-        elif FACE_DETECTION_METHOD == FaceDetectionMethod.precise:
-            face_locations = face_recognition.face_locations(
-                rgb_small_frame, 1, 'cnn')
-        elif FACE_DETECTION_METHOD == FaceDetectionMethod.fastest:
+        if ConfigVideoFrame.FACE_DETECTION_METHOD == ConfigVideoFrame.FaceDetectionMethod.fastest:
             gray_small_frame = cv2.cvtColor(
                 rgb_small_frame, cv2.COLOR_BGR2GRAY)
             face_rect = haar_cascade_face.detectMultiScale(
                 gray_small_frame, scaleFactor=1.2, minNeighbors=5)
             for (x, y, w, h) in face_rect:
                 face_locations.append((y, x + w, y + h, x))
+        else:
+            face_locations = face_recognition.face_locations(
+                rgb_small_frame, 1, ConfigVideoFrame.FACE_DETECTION_METHOD)
 
         FrameFaces.locations = face_locations
         FrameFaces.encodings = face_recognition.face_encodings(
@@ -109,9 +89,9 @@ class Frame():
         for face_encoding in FrameFaces.encodings:
             face_distances = face_recognition.face_distance(
                 facial_id_dataset.known_face_encodings, face_encoding)
-            name = UNKNOW_FACE_TEXT
+            name = ConfigVideoFrame.UNKNOW_FACE_TEXT
             for i, face_distance in enumerate(face_distances):
-                if face_distance < MAX_FACES_DISTANCE:
+                if face_distance < ConfigVideoFrame.MAX_FACES_DISTANCE:
                     name = facial_id_dataset.known_face_names[i]
                     break
             face_names.append(name) 
@@ -122,12 +102,12 @@ class Frame():
             self.who_liberate = recognized_faces[0]
 
     def get_faces(self, frame):
-        if PROCESS_FACES_IN_EVERY_FRAME:
+        if ConfigVideoFrame.PROCESS_FACES_IN_EVERY_FRAME:
             self.locate_faces(frame)
             self.recognize_faces()
         else:
             self.current_non_processed_frame += 1
-            should_process_this_frame = self.current_non_processed_frame >= RECOGNIZE_FACES_EVERY_N_FRAME
+            should_process_this_frame = self.current_non_processed_frame >= ConfigVideoFrame.RECOGNIZE_FACES_EVERY_N_FRAME
             if should_process_this_frame:
                 self.current_non_processed_frame = 0
                 self.locate_faces(frame)
