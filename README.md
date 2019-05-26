@@ -20,46 +20,6 @@ Basic example of access control with face recognition
 
 ![](face_access_add_demo.gif)
 
-## After installation
-To start, with terminal go to folder path and execute:
-```bash
-python main.py
-```
-
-## CLI commands:
-If everything is right, a new window with the webcam streaming and face recognition will start.
-In the terminal you should see somethong like: 
-
-**CMD:**
-
-*Don't use spaces between parameters, only between firstname, midlename, lastname..
-
-### Where you can do some actions like:
-**Add a new face id from a image file in the folder images:**
-```bash
-add,Joseph Smith,images/joseph.jpg
-```
-**Add a new face id from the current webcam capture:**
-```bash
-add,Joseph Smith
-```
-**List the current face ids:**
-```bash
-print
-```
-**Remove a face id:**
-```bash
-del,Joseph Smith
-```
-**Exit:**
-```bash
-q
-```
-or
-```bash
-quit
-```
-
 # Technologies and Libraries
 * [Python 3](https://www.python.org/)
 * [OpenCV](https://opencv.org/)
@@ -80,15 +40,6 @@ For complete version (already tested but not implemented yet):
     * Windows not officially supported by DLib and Face Recoginition library, but might work (slowly)
   * I strongly recommend that you use a package manager like Homebrew (MacOS), apt-get (Ubuntu) and Chocolatey (Windows)
 
-## XCode
-### MacOS
-* Install XCode from App Store
-
-then:
-```bash
-xcode-select --install
-```
-
 ## Package Manager installation
 ### Homebrew (Mac)
 ```bash
@@ -104,7 +55,15 @@ sudo apt upgrade
 @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
 ```
 
-## Cmake
+## Cmake or XCode
+### MacOS
+* Install XCode from App Store
+
+then:
+```bash
+xcode-select --install
+```
+
 ### Ubuntu
 ```bash
 sudo apt install build-essential cmake
@@ -116,8 +75,6 @@ choco install cmake -Y
 ```
 
 ## Python 3.6+ with PIP
-*I strongly recomend you to know about (and maybe use) [Virtual Enviroments](https://www.geeksforgeeks.org/python-virtual-environment/)
-
 ### MacOS
 ```bash
 brew install python3
@@ -130,6 +87,36 @@ sudo apt install python3 python3-pip
 ### Windows
 ```cmd
 choco install python3 -Y
+```
+
+## Virtual Enviroments
+*It's optional, but I strongly recomend you to know about (and use) [Virtual Enviroments](https://www.geeksforgeeks.org/python-virtual-environment/)
+
+The **virtualenv** lib is a tool to create isolated Python environments. virtualenv creates a folder which contains all the necessary executables to use the packages that a Python project would need.
+
+Installation:
+```bash
+pip3 install virtualenv
+```
+You can create a virtualenv using the following command (*choose a name, I used face_access):
+```bash
+virtualenv face_access
+```
+Activate it:
+```bash
+source face_access/bin/activate
+```
+Now **ALL** pip libraries will be installed isolated inside the environment. It'll look like this:
+
+**(face_access)$ pip3 install ...**
+
+If you want to deactivate:
+
+**(face_access)$ deactivate**
+
+Command:
+```bash
+deactivate
 ```
 ## OpenCV
 Install this module from pypi using `pip`:
@@ -221,4 +208,43 @@ pip install sounddevice_file_name.whl
 ### pip command
 ```bash
 pip3 install chirpsdk
+```
+# After installation
+To start, with terminal go to folder path and execute:
+```bash
+python main.py
+```
+
+## CLI commands:
+If everything is right, a new window with the webcam streaming and face recognition will start.
+In the terminal you should see somethong like: 
+
+**CMD:**
+
+*Don't use spaces between parameters, only between firstname, midlename, lastname..
+
+### Where you can do some actions like:
+**Add a new face id from a image file in the folder images:**
+```bash
+add,Joseph Smith,images/joseph.jpg
+```
+**Add a new face id from the current webcam capture:**
+```bash
+add,Joseph Smith
+```
+**List the current face ids:**
+```bash
+print
+```
+**Remove a face id:**
+```bash
+del,Joseph Smith
+```
+**Exit:**
+```bash
+q
+```
+or
+```bash
+quit
 ```
