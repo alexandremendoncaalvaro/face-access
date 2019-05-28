@@ -1,6 +1,7 @@
 import cv2
 import face_recognition
 import numpy as np
+from config import ConfigVideo
 
 class Image():
     def verify_alpha_channel(self, frame):
@@ -20,7 +21,9 @@ class Image():
 
 class Video():
     def __init__(self):
-        self._video_capture = cv2.VideoCapture(0)
+        self._video_capture = cv2.VideoCapture(ConfigVideo.CAMERA_ID)
+        self._video_capture.set(cv2.CAP_PROP_FRAME_WIDTH, ConfigVideo.CAPTURED_FRAME_WIDTH)
+        self._video_capture.set(cv2.CAP_PROP_FRAME_HEIGHT, ConfigVideo.CAPTURED_FRAME_HEIGHT)
         self._window_name = 'Video'
         cv2.namedWindow(self._window_name,cv2.WINDOW_AUTOSIZE)
         cv2.moveWindow(self._window_name, 0, 0)
