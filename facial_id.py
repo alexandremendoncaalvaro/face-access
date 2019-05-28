@@ -2,6 +2,7 @@ import face_recognition
 import numpy as np
 import pickle
 from config import ConfigFacialId
+from config import ConfigVideoFrame
 
 
 class FacialIdDataset():
@@ -10,6 +11,7 @@ class FacialIdDataset():
         self.known_face_encodings = []
         self.all_face_encodings = {}
         self.realtime_face_encodings = []
+        self.realtime_face_names = []
 
     def load(self):
         try:
@@ -22,9 +24,13 @@ class FacialIdDataset():
 
     def add(self, name):
         self.load()
-        realtime_face_encoding = self.realtime_face_encodings[0]
-        self.all_face_encodings[name] = realtime_face_encoding
-        self.save()
+        face_saved = False
+        while not face_saved:
+            if len(self.realtime_face_encodings) > 0:
+                if self.realtime_face_names[0] == ConfigVideoFrame.UNKNOW_FACE_TEXT:
+                    self.all_face_encodings[name] = self.realtime_face_encodings[0]
+                    self.save()
+                    face_saved = True
     
     def addFromFile(self, name, image_path):
         loaded_image = face_recognition.load_image_file(image_path)
@@ -45,7 +51,7 @@ class FacialIdDataset():
 
     def save(self):
         self.update()
-        with open(config.DATASET_FILENAME, 'wb') as f:
+        with open(ConfigFacialId.DATASET_FILENAME, 'wb') as f:
             pickle.dump(self.all_face_encodings, f)
 
     def print_names(self):

@@ -81,8 +81,7 @@ class Frame():
         FrameFaces.locations = face_locations
         FrameFaces.encodings = face_recognition.face_encodings(
             rgb_small_frame, face_locations)
-        facial_id_dataset.realtime_face_encodings = FrameFaces.encodings
-        
+
 
     def recognize_faces(self):
         face_names = []
@@ -96,10 +95,13 @@ class Frame():
                     break
             face_names.append(name) 
         FrameFaces.names = face_names
-        recognized_faces = [x for x in face_names if x != 'Desconhecido']
+        recognized_faces = [x for x in face_names if x != ConfigVideoFrame.UNKNOW_FACE_TEXT]
         self.are_there_recognized_faces = len(recognized_faces) > 0
         if self.are_there_recognized_faces:
             self.who_liberate = recognized_faces[0]
+        facial_id_dataset.realtime_face_encodings = FrameFaces.encodings
+        facial_id_dataset.realtime_face_names = FrameFaces.names
+        
 
     def get_faces(self, frame):
         if ConfigVideoFrame.PROCESS_FACES_IN_EVERY_FRAME:

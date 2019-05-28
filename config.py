@@ -16,7 +16,7 @@ class ConfigVideoFrame:
     PROCESSED_FRAME_SHRINK_FACTOR = 5
     PROCESS_FACES_IN_EVERY_FRAME = False
     RECOGNIZE_FACES_EVERY_N_FRAME = 10
-    UNKNOW_FACE_TEXT = 'desconhecido'
+    UNKNOW_FACE_TEXT = 'Desconhecido'
 
 
 class ConfigTempAccess:
