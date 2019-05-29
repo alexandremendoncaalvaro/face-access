@@ -114,6 +114,7 @@ venv.bak/
 *.dat
 *.key
 face_image.jpg
+qrcodes/*.*
 
 #virtual enviroment
 cv

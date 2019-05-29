@@ -57,7 +57,7 @@ class QrCode():
     def generate(self, message):
         encrypted = self.crypto.encrypt(message)
         qr = pyqrcode.create(encrypted)
-        qr.png(f'./qrcodes/{message}.png')
+        qr.png(f'./qrcodes/{message}.png', 10)
         qr.show()
 
 
