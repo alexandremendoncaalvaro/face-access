@@ -5,6 +5,9 @@ from video_frame import *
 from config import ConfigMain
 
 
+keep_loopings = True
+background_command = ''
+
 video = Video()
 image = Image()
 video_frame = Frame()
@@ -14,33 +17,43 @@ def main():
     setup()
     looping_video()
     video.finish()
-    
+
 
 def setup():
     facial_id_dataset.load()
     thread_cli.start()
+    thread_background_command.start()
+
+
+def looping_cli():
+    global keep_loopings
+    while keep_loopings:
+        command = input('CMD: ')
+        keep_loopings = execute_command(command)
+
+
+def looping_background_command():
+    global background_command, keep_loopings
+    while keep_loopings:
+        if background_command != '':
+            print(background_command)
+            keep_loopings = execute_command(background_command)
+            background_command = ''
 
 
 def looping_video():
     keep_looping = True
     while keep_looping:
         frame = video.get_frame()
-        processed_frame = video_frame.process_frame(frame)
+        valid_qrcode, processed_frame = video_frame.process_frame(frame)
+        if valid_qrcode != '':
+            global background_command
+            background_command = f'add,{valid_qrcode}'
         if video_frame.are_there_recognized_faces:
             give_access()
 
         video.update_window(processed_frame)
         keep_looping = thread_cli.is_alive() and not video.stop_when_key_press('q')
-
-
-def looping_cli():
-    keep_looping = True
-    while keep_looping:
-        command = input('CMD: ')
-        keep_looping = execute_command(command)
-
-
-thread_cli = threading.Thread(target=looping_cli)
 
 
 def execute_command(command):
@@ -130,6 +143,8 @@ def grant_access():
 
 
 thread_grant_access = threading.Thread(target=grant_access)
+thread_cli = threading.Thread(target=looping_cli)
+thread_background_command = threading.Thread(target=looping_background_command)
 
 
 def give_access():

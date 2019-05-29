@@ -29,16 +29,18 @@ class QrCode():
     def get_qr_codes(self, frame):
         barcodes = pyzbar.decode(frame)
         barcodes_data = []
+        valid_qrcode = ''
         if len(barcodes) > 0:
             for barcode in barcodes:
                 barcode_data = barcode.data.decode('utf-8')
                 barcodes_data.append(barcode_data)
                 if self.last_barcode_data == barcode_data:
                     try:
-                        decrypted_message = self.crypto.decrypt(
+                        valid_qrcode = self.crypto.decrypt(
                             barcode_data).decode('utf-8')
-                        self.paint_frame(frame, decrypted_message,
+                        self.paint_frame(frame, valid_qrcode,
                                          barcode.rect, color=ConfigTempAccess.QrCodeColor.encrypted)
+                        break
                     except:
                         self.paint_frame(frame, barcode_data, barcode.rect)
 
@@ -46,7 +48,7 @@ class QrCode():
                     self.last_barcode_data = barcode_data
                     self.paint_frame(frame, barcode_data, barcode.rect)
 
-        return barcodes_data, frame
+        return valid_qrcode, frame
 
     def paint_frame(self, frame, barcode_data, barcode_rect, color=ConfigTempAccess.QrCodeColor.default):
         (x, y, w, h) = barcode_rect

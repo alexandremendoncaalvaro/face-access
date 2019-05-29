@@ -9,7 +9,7 @@ class ConfigVideo:
 class ConfigVideoFrame:
     class FaceRectangleColor:
         default = (255, 255, 255)
-        liberated = (0, 255, 0)
+        liberated = (153, 255, 0)
 
     class FaceDetectionMethod:
         fastest = 'haarcascade'
@@ -27,7 +27,7 @@ class ConfigVideoFrame:
 class ConfigTempAccess:
     BASE_32_KEY = 'XCOBLUBMMAJND2GY'
     class QrCodeColor:
-        default = (255, 0, 0)
+        default = (0, 255, 0)
         encrypted = (153, 255, 0)
 
 

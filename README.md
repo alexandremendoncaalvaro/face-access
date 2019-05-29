@@ -25,11 +25,9 @@ Basic example of access control with face recognition
 * [OpenCV](https://opencv.org/)
 * [dlib](http://dlib.net/)
 * Face Recognition ([ageitgey](https://github.com/ageitgey/face_recognition))
-
-For complete version (already tested but not implemented yet):
 * Arduino ([pyfirmata](https://pypi.org/project/pyFirmata/))
 * Google Text 2 Speech ([gTTS](https://pypi.org/project/gTTS/))
-* QR-Code ([pyZbar](https://pypi.org/project/pyzbar/))
+* QR-Code ([pyZbar, pyqrcode, pypng](https://www.youtube.com/watch?v=1_q2dCphf50))
 * Audio-Code ([Chirp](https://developers.chirp.io/docs))
 
 # Installation
@@ -183,7 +181,7 @@ choco install zbar -Y
 ```
 ### pip command
 ```bash
-pip3 install pyzbar
+pip3 install pyzbar pyqrcode pypng
 ```
 
 ## Audio Code - CHIRP

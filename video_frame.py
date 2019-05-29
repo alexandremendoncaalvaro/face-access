@@ -33,10 +33,10 @@ class Frame():
 
 
     def process_frame(self, frame):
-        qr_codes, frame = qr_code.get_qr_codes(frame)
+        valid_qrcode, frame = qr_code.get_qr_codes(frame)
         self.get_faces(frame)
         painted_frame = self.paint_faces_rect(frame)
-        return painted_frame
+        return valid_qrcode, painted_frame
 
     def to_rgb_small_frame(self, frame):
         small_frame = cv2.resize(
