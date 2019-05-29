@@ -19,13 +19,16 @@ class ConfigVideoFrame:
 
     MAX_FACES_DISTANCE = .5  # 0.0 to 1.0
     PROCESSED_FRAME_SHRINK_FACTOR = 2
-    PROCESS_FACES_IN_EVERY_FRAME = False
-    RECOGNIZE_FACES_EVERY_N_FRAME = 10
+    PROCESS_FACES_IN_EVERY_FRAME = True
+    RECOGNIZE_FACES_EVERY_N_FRAME = 2
     UNKNOW_FACE_TEXT = 'Desconhecido'
 
 
 class ConfigTempAccess:
     BASE_32_KEY = 'XCOBLUBMMAJND2GY'
+    class QrCodeColor:
+        default = (255, 0, 0)
+        encrypted = (153, 255, 0)
 
 
 class ConfigFacialId:

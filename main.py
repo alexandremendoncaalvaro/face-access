@@ -76,19 +76,32 @@ def execute_command(command):
         facial_id_dataset.print_names()
 
     elif command in ['generate key']:
-        result = otp.get_new_base32_key()
-        print(result)
+        otp_key = otp.get_new_base32_key()
+        print(f'OTP key: {otp_key}')
+        crypto_key = crypto.get_key()
+        print(f'Cryptography key: {crypto_key}')
 
     elif command[:8] == 'password':
         key = commands[1]
-        result = otp.verify(key)
-        if result:
+        otp_key = otp.verify(key)
+        if otp_key:
             give_access()
         else:
             print('Chave inválida!')
 
     elif command[:7] == 'encrypt':
-        message = command[1]
+        message = commands[1]
+        result = crypto.encrypt(message)
+        print(result.decode('utf-8'))
+
+    elif command[:7] == 'decrypt':
+        message = commands[1]
+        result = crypto.decrypt(message)
+        print(result.decode('utf-8'))
+
+    elif command[:2] == 'qr':
+        message = commands[1]
+        result = qr_code.generate(message)
 
     elif command == '':
         pass

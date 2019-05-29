@@ -40,7 +40,7 @@ class FacialIdDataset():
 
     def remove(self, to_remove):
         self.load()
-        self.all_face_encodings.pop(to_remove)
+        self.all_face_encodings.pop(to_remove, None)
         self.save()
 
     def update(self):

@@ -111,7 +111,8 @@ venv.bak/
 .DS_Store
 
 # project ignored files
-dataset.dat
+*.dat
+*.key
 face_image.jpg
 
 #virtual enviroment

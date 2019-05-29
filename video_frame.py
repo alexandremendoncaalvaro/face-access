@@ -10,6 +10,7 @@ from config import ConfigVideoFrame
 facial_id_dataset = FacialIdDataset()
 qr_code = QrCode()
 otp = OneTimePassword()
+crypto = Crypto()
 haar_cascade_face = cv2.CascadeClassifier(
     'haarcascades/haarcascade_frontalface_alt2.xml')
 
