@@ -70,11 +70,23 @@ sudo apt install build-essential cmake
 ```
 
 ### Windows
+* Install Visual Studio **with Visual C++ Build Tools 2015**
+
+  https://visualstudio.microsoft.com
+
+* install Cmake:
 ```cmd
 choco install cmake -Y
 ```
 
+Or manually install from: https://cmake.org/download/
+
+*Add Cmake installation directory path to System path.
+* [How to add directories to System path?](https://www.howtogeek.com/118594/how-to-edit-your-system-path-for-easy-command-line-access/)
+
 ## Python 3.6+ with PIP
+*I strongly recomend you to know about (and maybe use) [Virtual Enviroments](https://www.geeksforgeeks.org/python-virtual-environment/)
+
 ### MacOS
 ```bash
 brew install python3
