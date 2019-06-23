@@ -2,6 +2,7 @@ import threading
 import time
 from video import Image, Video
 from video_frame import *
+from arduino import ArduinoBoard
 from config import ConfigMain
 
 
@@ -11,7 +12,7 @@ background_command = ''
 video = Video()
 image = Image()
 video_frame = Frame()
-
+arduino_board = ArduinoBoard() if ConfigMain.ENABLE_ARDUINO else None
 
 def main():
     setup()
@@ -58,69 +59,73 @@ def looping_video():
 
 def execute_command(command):
     keep_looping = True
-    commands = command.split(',')
+    try:
+        commands = command.split(',')
 
-    if command in ['update', 'refresh']:
-        facial_id_dataset.load()
+        if command in ['update', 'refresh']:
+            facial_id_dataset.load()
 
-    elif command in ['exit', 'quit', 'q']:
-        keep_looping = False
+        elif command in ['exit', 'quit', 'q']:
+            keep_looping = False
 
-    elif command in ['print', 'faces', 'names', 'ids']:
-        facial_id_dataset.print_names()
+        elif command in ['print', 'faces', 'names', 'ids']:
+            facial_id_dataset.print_names()
 
-    elif command[:3] == 'add':
-        total_parameters = len(commands)-1
-        name = commands[1]
+        elif command[:3] == 'add':
+            total_parameters = len(commands)-1
+            name = commands[1]
 
-        # add,firstname lastname,file.jpg
-        if total_parameters == 2:
-            face_image = commands[2]
-            facial_id_dataset.addFromFile(name, face_image)
-        # add,firstname lastname
-        elif total_parameters == 1:
-            facial_id_dataset.add(name)
+            # add,firstname lastname,file.jpg
+            if total_parameters == 2:
+                face_image = commands[2]
+                facial_id_dataset.addFromFile(name, face_image)
+            # add,firstname lastname
+            elif total_parameters == 1:
+                facial_id_dataset.add(name)
 
-        facial_id_dataset.print_names()
+            facial_id_dataset.print_names()
 
-    elif command[:3] == 'del' or command[:3] == 'rem':
-        name = commands[1]
-        facial_id_dataset.remove(name)
-        facial_id_dataset.print_names()
+        elif command[:3] == 'del' or command[:3] == 'rem':
+            name = commands[1]
+            facial_id_dataset.remove(name)
+            facial_id_dataset.print_names()
 
-    elif command in ['generate key']:
-        otp_key = otp.get_new_base32_key()
-        print(f'OTP key: {otp_key}')
-        crypto_key = crypto.get_key()
-        print(f'Cryptography key: {crypto_key}')
+        elif command in ['generate key']:
+            otp_key = otp.get_new_base32_key()
+            print(f'OTP key: {otp_key}')
+            crypto_key = crypto.get_key()
+            print(f'Cryptography key: {crypto_key}')
 
-    elif command[:8] == 'password':
-        key = commands[1]
-        otp_key = otp.verify(key)
-        if otp_key:
-            give_access()
+        elif command[:8] == 'password':
+            key = commands[1]
+            otp_key = otp.verify(key)
+            if otp_key:
+                give_access()
+            else:
+                print('Chave inválida!')
+
+        elif command[:7] == 'encrypt':
+            message = commands[1]
+            result = crypto.encrypt(message)
+            print(result.decode('utf-8'))
+
+        elif command[:7] == 'decrypt':
+            message = commands[1]
+            result = crypto.decrypt(message)
+            print(result.decode('utf-8'))
+
+        elif command[:2] == 'qr':
+            message = commands[1]
+            print('Gerando QR-Code criptografado na pasta qrcodes...')
+            result = qr_code.generate(message)
+
+        elif command == '':
+            pass
+
         else:
-            print('Chave inválida!')
-
-    elif command[:7] == 'encrypt':
-        message = commands[1]
-        result = crypto.encrypt(message)
-        print(result.decode('utf-8'))
-
-    elif command[:7] == 'decrypt':
-        message = commands[1]
-        result = crypto.decrypt(message)
-        print(result.decode('utf-8'))
-
-    elif command[:2] == 'qr':
-        message = commands[1]
-        result = qr_code.generate(message)
-
-    elif command == '':
-        pass
-
-    else:
-        print('Comando não identificado!')
+            print('Comando não identificado!')
+    except:
+        print('Comando inválido!')
 
     return keep_looping
 
@@ -130,6 +135,8 @@ def grant_access():
     print('Acesso liberado!')
     print()
     print('CMD: ', end='', flush=True)
+    if arduino_board != None:
+        arduino_board.set_relay(1)
     video_frame.face_rectangle_color = ConfigVideoFrame.FaceRectangleColor.liberated
     global thread_cli
     end_access_time = time.time() + ConfigMain.LIBERATION_TIME_S
@@ -138,6 +145,8 @@ def grant_access():
         liberation_finished = time.time() >= end_access_time
         if not thread_cli.is_alive() or liberation_finished:
             still_wait = False
+    if arduino_board != None:
+        arduino_board.set_relay(0)
     video_frame.face_rectangle_color = ConfigVideoFrame.FaceRectangleColor.default
     video_frame.who_liberate = ''
 

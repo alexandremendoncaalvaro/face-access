@@ -21,15 +21,16 @@ Basic example of access control with face recognition
 ![](face_access_qrcode_demo.gif)
 
 *Easy QR-Code face register demonstration
-<!-- ![](face_access_add_demo.gif) -->
+
 
 # Technologies and Libraries
 * [Python 3](https://www.python.org/)
 * [OpenCV](https://opencv.org/)
 * [dlib](http://dlib.net/)
 * Face Recognition ([ageitgey](https://github.com/ageitgey/face_recognition))
-* Arduino ([pyfirmata](https://pypi.org/project/pyFirmata/))
-* Google Text 2 Speech ([gTTS](https://pypi.org/project/gTTS/))
+* Arduino ([pyfirmata2](https://pypi.org/project/pyFirmata2))
+* Fernet Cryptography ([cryptography](https://cryptography.io/en/latest))
+* Google Text 2 Speech ([gTTS](https://pypi.org/project/gTTS))
 * QR-Code ([pyZbar, pyqrcode, pypng](https://www.youtube.com/watch?v=1_q2dCphf50))
 * Audio-Code ([Chirp](https://developers.chirp.io/docs))
 
@@ -44,6 +45,8 @@ Basic example of access control with face recognition
 # Easy install
 You can copy and paste these commands to install all lib dependencies for once or going step-by-step.
 
+*if **pip3** command not working use **pip** instead
+
 ## MacOS
 ```bash
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -52,7 +55,7 @@ brew install cmake python3 zbar portaudio libsndfile -Y
 pip3 install virtualenv
 virtualenv cv
 source cv/bin/activate
-pip3 install opencv-contrib-python dlib face_recognition pyFirmata gTTS pyotp pyzbar pyqrcode pypng chirpsdk
+pip3 install opencv-contrib-python dlib face_recognition pyfirmata2 cryptography gTTS pyotp pyzbar pyqrcode pypng chirpsdk
 ```
 ## Ubuntu
 ```bash
@@ -62,7 +65,7 @@ sudo apt-get install build-essential cmake python3 python3-pip libzbar-dev libzb
 pip3 install virtualenv
 virtualenv cv
 source cv/bin/activate
-pip3 install opencv-contrib-python dlib face_recognition pyFirmata gTTS pyotp pyzbar pyqrcode pypng chirpsdk
+pip3 install opencv-contrib-python dlib face_recognition pyfirmata2 cryptography gTTS pyotp pyzbar pyqrcode pypng chirpsdk
 ```
 ## Windows
 *Go step-by-step
@@ -118,6 +121,7 @@ Or manually install from: https://cmake.org/download/
 ## Python 3.6+ with PIP
 *I strongly recomend you to know about (and maybe use) [Virtual Enviroments](https://www.geeksforgeeks.org/python-virtual-environment/)
 
+*if **pip3** command not working use **pip** instead
 ### MacOS
 ```bash
 brew install python3
@@ -186,16 +190,20 @@ pip3 install face_recognition
 While Windows isn't officially supported, helpful users have posted instructions on how to install this library:
   * [@masoudr's Windows 10 installation guide (dlib + face_recognition)](https://github.com/ageitgey/face_recognition/issues/175#issue-257710508)
   
-## Arduino control with pyFirmata
-You will need an Arduino Board like Uno, Mega, Micro, Nano with a relay module to control the access.
+## Arduino control with pyFirmata2
+You will need an Arduino Board like Uno, Mega, Micro, Nano with a relay module and a solenoid Door lock to control the access.
+![](arduino_relay.jpg)
 
 Install Arduino IDE and use the Example Firmata > StandardFirmata on the board.
-The board need to stay connected by USB.
-All the GPIO controll will be done by the python code.
+![](arduino_firmata.jpg)
+
+The board need to stay connected over USB.
+All the Arduino (GPIO) control will be done by the python code.
+
 
 ### pip command
 ```bash
-pip3 install pyFirmata
+pip3 install pyfirmata2
 ```
 
 ## Google Text 2 Speech

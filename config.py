@@ -1,5 +1,6 @@
 class ConfigMain:
     LIBERATION_TIME_S = 30
+    ENABLE_ARDUINO = False
 
 class ConfigVideo:
     CAMERA_ID = 0
@@ -33,3 +34,6 @@ class ConfigTempAccess:
 
 class ConfigFacialId:
     DATASET_FILENAME = 'dataset.dat'
+
+class ConfigArduino:
+    USB_PATH: ''
