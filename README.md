@@ -281,6 +281,9 @@ To start, with terminal go to folder path and execute:
 python main.py
 ```
 
+## Config file:
+You can change a lot of configurations using config.py file
+
 ## CLI commands:
 If everything is right, a new window with the webcam streaming and face recognition will start.
 In the terminal you should see somethong like: 
@@ -290,6 +293,10 @@ In the terminal you should see somethong like:
 *Don't use spaces **BETWEEN** parameters, they are separated by comma (,). But you can use spaces **IN** parameter, like: Firstname Middlename Lastname..
 
 ### Where you can do some actions like:
+**Create a QR-Code to show to the camera and easelly register a new face:**
+```bash
+qr,Joseph Smith
+```
 **Add a new face id from a image file in the folder images:**
 ```bash
 add,Joseph Smith,images/joseph.jpg
