@@ -32,6 +32,7 @@ Basic example of access control with face recognition
 * Fernet Cryptography ([cryptography](https://cryptography.io/en/latest))
 * Google Text 2 Speech ([gTTS](https://pypi.org/project/gTTS))
 * QR-Code ([pyZbar, pyqrcode, pypng](https://www.youtube.com/watch?v=1_q2dCphf50))
+* Welcome synthesized audio ([pygame mixer](https://www.pygame.org))
 * Audio-Code ([Chirp](https://developers.chirp.io/docs))
 
 # Requirements
@@ -55,7 +56,7 @@ brew install cmake python3 zbar portaudio libsndfile -Y
 pip3 install virtualenv
 virtualenv cv
 source cv/bin/activate
-pip3 install opencv-contrib-python dlib face_recognition pyfirmata2 cryptography gTTS pyotp pyzbar pyqrcode pypng chirpsdk
+pip3 install opencv-contrib-python dlib face_recognition pyfirmata2 cryptography gTTS pyotp pyzbar pyqrcode pypng chirpsdk pygame
 ```
 ## Ubuntu
 ```bash
@@ -65,7 +66,7 @@ sudo apt-get install build-essential cmake python3 python3-pip libzbar-dev libzb
 pip3 install virtualenv
 virtualenv cv
 source cv/bin/activate
-pip3 install opencv-contrib-python dlib face_recognition pyfirmata2 cryptography gTTS pyotp pyzbar pyqrcode pypng chirpsdk
+pip3 install opencv-contrib-python dlib face_recognition pyfirmata2 cryptography gTTS pyotp pyzbar pyqrcode pypng chirpsdk pygame
 ```
 ## Windows
 *Go step-by-step
@@ -241,6 +242,12 @@ choco install zbar -Y
 ### pip command
 ```bash
 pip3 install pyzbar pyqrcode pypng
+```
+
+## Welcome Audio (Pygame Mixer)
+### pip command
+```bash
+pip3 install pygame
 ```
 
 ## Audio Code - CHIRP

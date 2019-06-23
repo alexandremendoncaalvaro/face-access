@@ -1,5 +1,7 @@
 import threading
 import time
+from pygame import mixer
+from gtts import gTTS
 from video import Image, Video
 from video_frame import *
 from arduino import ArduinoBoard
@@ -130,11 +132,21 @@ def execute_command(command):
     return keep_looping
 
 
+def play_welcome_audio(name):
+    welcome_text = ConfigMain.WELCOME_MESSAGE + name
+    tts = gTTS(text=welcome_text, lang=ConfigMain.AUDIO_LANGUAGE)
+    tts.save('welcome.mp3')
+    mixer.init()
+    mixer.music.load('welcome.mp3')
+    mixer.music.play()
+
 def grant_access():
     print()
     print('Acesso liberado!')
     print()
     print('CMD: ', end='', flush=True)
+    if ConfigMain.ENABLE_WELCOME_AUDIO:
+        play_welcome_audio(video_frame.who_liberate)
     if arduino_board != None:
         arduino_board.set_relay(1)
     video_frame.face_rectangle_color = ConfigVideoFrame.FaceRectangleColor.liberated

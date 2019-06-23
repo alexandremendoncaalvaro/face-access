@@ -1,6 +1,9 @@
 class ConfigMain:
     LIBERATION_TIME_S = 30
     ENABLE_ARDUINO = False
+    ENABLE_WELCOME_AUDIO = True
+    AUDIO_LANGUAGE = 'pt-br'
+    WELCOME_MESSAGE = 'Bem vindo '
 
 class ConfigVideo:
     CAMERA_ID = 0

@@ -116,6 +116,7 @@ venv.bak/
 face_image.jpg
 qrcodes/*
 !qrcodes/.gitkeep 
+*.mp3
 
 #virtual enviroment
 cv
