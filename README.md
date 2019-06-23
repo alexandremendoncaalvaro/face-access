@@ -8,7 +8,7 @@ Basic example of access control with face recognition
 - [x] Face recogniton from Webcam
 - [x] Just use the photo once for register, after that discard. Save only a id on the local file database (LGPDP Brasil Safe).
 - [x] OneTimePassword with Google Authenticator
-- [ ] Text to Speech for welcome audio message
+- [x] Text to Speech for welcome audio message
 - [x] Arduino commands to open the door
 - [x] Qr-Code to easy registration and temporary access
 - [ ] Audio code (CHIRP) to easy registration and temporary access
