@@ -9,8 +9,8 @@ Basic example of access control with face recognition
 - [x] Just use the photo once for register, after that discard. Save only a id on the local file database (LGPDP Brasil Safe).
 - [x] OneTimePassword with Google Authenticator
 - [ ] Text to Speech for welcome audio message
-- [ ] Arduino commands to open the door
-- [ ] Qr-Code to easy registration and temporary access
+- [x] Arduino commands to open the door
+- [x] Qr-Code to easy registration and temporary access
 - [ ] Audio code (CHIRP) to easy registration and temporary access
 
 ### Improvements
@@ -18,7 +18,10 @@ Basic example of access control with face recognition
 - [x] GPU support
 - [ ] Improve performance with Region Of Interest method (https://github.com/hrastnik/face_detect_n_track)
 
-![](face_access_add_demo.gif)
+![](face_access_qrcode_demo.gif)
+
+*Easy QR-Code face register demonstration
+<!-- ![](face_access_add_demo.gif) -->
 
 # Technologies and Libraries
 * [Python 3](https://www.python.org/)
@@ -30,13 +33,41 @@ Basic example of access control with face recognition
 * QR-Code ([pyZbar, pyqrcode, pypng](https://www.youtube.com/watch?v=1_q2dCphf50))
 * Audio-Code ([Chirp](https://developers.chirp.io/docs))
 
-# Installation
-## Requirements
+# Requirements
   * Python 3.6+
   * Cmake(Linux and Windows) or XCode (MacOS)
   * MacOS or Linux (Tested with Ubuntu 18.04).
     * Windows not officially supported by DLib and Face Recoginition library, but might work (slowly)
   * I strongly recommend that you use a package manager like Homebrew (MacOS), apt-get (Ubuntu) and Chocolatey (Windows)
+
+
+# Easy install
+You can copy and paste these commands to install all lib dependencies for once or going step-by-step.
+
+## MacOS
+```bash
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+xcode-select --install
+brew install cmake python3 zbar portaudio libsndfile -Y
+pip3 install virtualenv
+virtualenv cv
+source cv/bin/activate
+pip3 install opencv-contrib-python dlib face_recognition pyFirmata gTTS pyotp pyzbar pyqrcode pypng chirpsdk
+```
+## Ubuntu
+```bash
+sudo apt update
+sudo apt upgrade
+sudo apt-get install build-essential cmake python3 python3-pip libzbar-dev libzbar0 python3-dev python3-setuptools portaudio19-dev libffi-dev libsndfile1
+pip3 install virtualenv
+virtualenv cv
+source cv/bin/activate
+pip3 install opencv-contrib-python dlib face_recognition pyFirmata gTTS pyotp pyzbar pyqrcode pypng chirpsdk
+```
+## Windows
+*Go step-by-step
+
+# Install (step-by-step)
 
 ## Package Manager installation
 ### Homebrew (Mac)
@@ -110,26 +141,27 @@ Installation:
 ```bash
 pip3 install virtualenv
 ```
-You can create a virtualenv using the following command (*choose a name, I used face_access):
+You can create a virtualenv using the following command (*choose a name, I used cv):
 ```bash
-virtualenv face_access
+virtualenv cv
 ```
 Activate it:
 ```bash
-source face_access/bin/activate
+source cv/bin/activate
 ```
 Now **ALL** pip libraries will be installed isolated inside the environment. It'll look like this:
 
-**(face_access)$ pip3 install ...**
+**(cv)$ pip3 install ...**
 
 If you want to deactivate:
 
-**(face_access)$ deactivate**
+**(cv)$ deactivate**
 
 Command:
 ```bash
 deactivate
 ```
+
 ## OpenCV
 Install this module from pypi using `pip`:
 ```bash
@@ -233,7 +265,7 @@ In the terminal you should see somethong like:
 
 **CMD:**
 
-*Don't use spaces between parameters, only between firstname, midlename, lastname..
+*Don't use spaces **BETWEEN** parameters, they are separated by comma (,). But you can use spaces **IN** parameter, like: Firstname Middlename Lastname..
 
 ### Where you can do some actions like:
 **Add a new face id from a image file in the folder images:**
