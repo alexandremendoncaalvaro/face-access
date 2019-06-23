@@ -192,14 +192,21 @@ While Windows isn't officially supported, helpful users have posted instructions
   
 ## Arduino control with pyFirmata2
 You will need an Arduino Board like Uno, Mega, Micro, Nano with a relay module and a solenoid Door lock to control the access.
+
 ![](arduino_relay.jpg)
 
-Install Arduino IDE and use the Example Firmata > StandardFirmata on the board.
+Install Arduino IDE and use the Example > Firmata > StandardFirmata on the board.
+
 ![](arduino_firmata.jpg)
 
 The board need to stay connected over USB.
 All the Arduino (GPIO) control will be done by the python code.
 
+This algorithm automatically detects the serial port of the Arduino.
+If this fails you can also specify the serial port manually, for example:
+board = Arduino('COM4')
+
+Under Linux this is usually /dev/ttyUSB0. Under Windows this is a COM port, for example COM4. On a MAC it’s /dev/ttys000, /dev/cu.usbmodem14101 or check for the latest addition: ls -l -t /dev/*.
 
 ### pip command
 ```bash
