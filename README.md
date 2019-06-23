@@ -17,6 +17,7 @@ Basic example of access control with face recognition
 - [x] Multithread support
 - [x] GPU support
 - [ ] Improve performance with Region Of Interest method (https://github.com/hrastnik/face_detect_n_track)
+- [ ] Port to Raspberry Pi
 
 ![](face_access_qrcode_demo.gif)
 
