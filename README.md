@@ -12,6 +12,8 @@ Basic example of access control with face recognition
 - [x] Arduino commands to open the door
 - [x] Qr-Code to easy registration and temporary access
 - [ ] Audio code (CHIRP) to easy registration and temporary access
+- [ ] Use requirements.txt to Easy Install
+- [ ] Easy Install for Windows
 
 ### Improvements
 - [x] Multithread support
@@ -45,29 +47,58 @@ Basic example of access control with face recognition
 
 
 # Easy install
-You can copy and paste these commands to install all lib dependencies for once or going step-by-step.
+You can copy and paste these commands to install all dependencies or going step-by-step in this tutorial to understand each part.
 
 *if **pip3** command not working use **pip** instead
 
+**if something not work, try to reboot the terminal. :)
+
 ## MacOS
 ```bash
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 xcode-select --install
-brew install cmake python3 zbar portaudio libsndfile -Y
+```
+```bash
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+```bash
+brew install git cmake python3 zbar portaudio libsndfile
+```
+```bash
+git clone https://github.com/alexandremendoncaalvaro/face-access.git
+```
+```bash
 pip3 install virtualenv
+```
+```bash
 virtualenv cv
 source cv/bin/activate
-pip3 install opencv-contrib-python dlib face_recognition pyfirmata2 cryptography gTTS pyotp pyzbar pyqrcode pypng chirpsdk pygame
+```
+```bash
+pip3 install -r requirements.txt
 ```
 ## Ubuntu
 ```bash
 sudo apt update
 sudo apt upgrade
-sudo apt-get install build-essential cmake python3 python3-pip libzbar-dev libzbar0 python3-dev python3-setuptools portaudio19-dev libffi-dev libsndfile1
+```
+```bash
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+```bash
+sudo apt-get install git build-essential cmake python3 python3-pip libzbar-dev libzbar0 python3-dev python3-setuptools portaudio19-dev libffi-dev libsndfile1
+```
+```bash
+git clone https://github.com/alexandremendoncaalvaro/face-access.git
+```
+```bash
 pip3 install virtualenv
+```
+```bash
 virtualenv cv
 source cv/bin/activate
-pip3 install opencv-contrib-python dlib face_recognition pyfirmata2 cryptography gTTS pyotp pyzbar pyqrcode pypng chirpsdk pygame
+```
+```bash
+pip3 install -r requirements.txt
 ```
 ## Windows
 *Go step-by-step

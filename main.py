@@ -145,11 +145,11 @@ def grant_access():
     print('Acesso liberado!')
     print()
     print('CMD: ', end='', flush=True)
+    video_frame.face_rectangle_color = ConfigVideoFrame.FaceRectangleColor.liberated
     if ConfigMain.ENABLE_WELCOME_AUDIO:
         play_welcome_audio(video_frame.who_liberate)
     if arduino_board != None:
         arduino_board.set_relay(1)
-    video_frame.face_rectangle_color = ConfigVideoFrame.FaceRectangleColor.liberated
     global thread_cli
     end_access_time = time.time() + ConfigMain.LIBERATION_TIME_S
     still_wait = True

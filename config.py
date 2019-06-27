@@ -7,8 +7,8 @@ class ConfigMain:
 
 class ConfigVideo:
     CAMERA_ID = 0
-    CAPTURED_FRAME_WIDTH = 640
-    CAPTURED_FRAME_HEIGHT = 480
+    CAPTURED_FRAME_WIDTH = 320
+    CAPTURED_FRAME_HEIGHT = 240
 
 class ConfigVideoFrame:
     class FaceRectangleColor:
@@ -23,8 +23,8 @@ class ConfigVideoFrame:
 
     MAX_FACES_DISTANCE = .5  # 0.0 to 1.0
     PROCESSED_FRAME_SHRINK_FACTOR = 2
-    PROCESS_FACES_IN_EVERY_FRAME = True
-    RECOGNIZE_FACES_EVERY_N_FRAME = 2
+    PROCESS_FACES_IN_EVERY_FRAME = False
+    RECOGNIZE_FACES_EVERY_N_FRAME = 5
     UNKNOW_FACE_TEXT = 'Desconhecido'
 
 
