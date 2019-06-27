@@ -20,6 +20,7 @@ Basic example of access control with face recognition
 - [x] GPU support
 - [ ] Improve performance with Region Of Interest method (https://github.com/hrastnik/face_detect_n_track)
 - [ ] Port to Raspberry Pi
+- [ ] Refactoring (SOLID, and a good pattern at least)
 
 ![](face_access_qrcode_demo.gif)
 
@@ -65,6 +66,7 @@ brew install git cmake python3 zbar portaudio libsndfile
 ```
 ```bash
 git clone https://github.com/alexandremendoncaalvaro/face-access.git
+cd face-access
 ```
 ```bash
 pip3 install virtualenv
@@ -89,6 +91,7 @@ sudo apt-get install git build-essential cmake python3 python3-pip libzbar-dev l
 ```
 ```bash
 git clone https://github.com/alexandremendoncaalvaro/face-access.git
+cd face-access
 ```
 ```bash
 pip3 install virtualenv
