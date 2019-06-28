@@ -112,17 +112,17 @@ pip3 install -r requirements.txt
   https://visualstudio.microsoft.com
 
 ```cmd
-choco install git cmake python3 zbar
+choco install git cmake python3 zbar -Y
 ```
 ```cmd
-git clone https://github.com/alexandremendoncaalvaro/face-access.git
+git clone https://github.com/alexandremendoncaalvaro/face-access.git &&
 cd face-access
 ```
 ```cmd
 pip3 install virtualenv
 ```
 ```cmd
-virtualenv cv
+virtualenv cv &&
 source cv/bin/activate
 ```
 * Download sounddevice (last whl file version) from the link below
