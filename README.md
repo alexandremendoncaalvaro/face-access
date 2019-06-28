@@ -12,8 +12,8 @@ Basic example of access control with face recognition
 - [x] Arduino commands to open the door
 - [x] Qr-Code to easy registration and temporary access
 - [ ] Audio code (CHIRP) to easy registration and temporary access
-- [ ] Use requirements.txt to Easy Install
-- [ ] Easy Install for Windows
+- [x] Use requirements.txt to Easy Install
+- [x] Easy Install for Windows
 
 ### Improvements
 - [x] Multithread support
@@ -48,7 +48,7 @@ Basic example of access control with face recognition
 
 
 # Easy install
-You can copy and paste these commands to install all dependencies or going step-by-step in this tutorial to understand each part.
+You can copy and paste these commands to install all dependencies or going step-by-step in this tutorial to understand each part or if something not working.
 
 *if **pip3** command not working use **pip** instead
 
@@ -123,10 +123,12 @@ pip3 install virtualenv
 ```
 ```cmd
 virtualenv cv &&
-source cv/bin/activate
+cv\Scripts\activate
 ```
-* Download sounddevice (last whl file version) from the link below
+* Download sounddevice from the link below
 https://www.lfd.uci.edu/~gohlke/pythonlibs/#sounddevice
+
+* Example: sounddevice‑0.3.13‑**cp37**‑cp37m‑**win**_amd**64**.whl: For Python 3.7 and Windows 64 bits
 * From the file path:
 ```cmd
 pip3 install sounddevice_file_name.whl
@@ -135,7 +137,6 @@ pip3 install sounddevice_file_name.whl
 ```cmd
 pip3 install -r requirements.txt
 ```
-
 
 # Install (step-by-step)
 
@@ -217,9 +218,15 @@ You can create a virtualenv using the following command (*choose a name, I used 
 virtualenv cv
 ```
 Activate it:
+### MacOS & Ubuntu
 ```bash
 source cv/bin/activate
 ```
+### Windows
+```cmd
+cv\Scripts\activate
+```
+
 Now **ALL** pip libraries will be installed isolated inside the environment. It'll look like this:
 
 **(cv)$ pip3 install ...**
@@ -241,22 +248,19 @@ pip3 install opencv-contrib-python
 *[Complete Tutorial from pyimagesearch](https://www.pyimagesearch.com/2018/09/19/pip-install-opencv/)
 
 ## DLib + Face Recognition (ageitgey)  
-### MacOS or Linux
 ```bash
 pip3 install dlib
 ```
 *[How to install dlib from source on macOS or Ubuntu](https://gist.github.com/ageitgey/629d75c1baac34dfa5ca2a1928a7aeaf)
 
+*How to install dlib from source on Windows: While Windows isn't officially supported, helpful users have posted instructions on how to install this library:
+  * [@masoudr's Windows 10 installation guide (dlib + face_recognition)](https://github.com/ageitgey/face_recognition/issues/175#issue-257710508)
+  
 Then, install this module from pypi using `pip`:
 
 ```bash
 pip3 install face_recognition
 ```
-
-### Windows
-While Windows isn't officially supported, helpful users have posted instructions on how to install this library:
-  * [@masoudr's Windows 10 installation guide (dlib + face_recognition)](https://github.com/ageitgey/face_recognition/issues/175#issue-257710508)
-  
 ## Arduino control with pyFirmata2
 You will need an Arduino Board like Uno, Mega, Micro, Nano with a relay module and a solenoid Door lock to control the access.
 
@@ -329,8 +333,10 @@ brew install portaudio libsndfile
 sudo apt-get install python3-dev python3-setuptools portaudio19-dev libffi-dev libsndfile1
 ```
 ### Windows
-* Download sounddevice (last whl file version) from the link below
+* Download sounddevice from the link below
 https://www.lfd.uci.edu/~gohlke/pythonlibs/#sounddevice
+
+* Example: sounddevice‑0.3.13‑**cp37**‑cp37m‑**win**_amd**64**.whl: For Python 3.7 and Windows 64 bits
 * From the file path:
 ```cmd
 pip3 install sounddevice_file_name.whl
