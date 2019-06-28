@@ -209,7 +209,7 @@ choco install python3 -Y
 
 The **virtualenv** lib is a tool to create isolated Python environments. virtualenv creates a folder which contains all the necessary executables to use the packages that a Python project would need.
 
-Installation:
+### pip command
 ```bash
 pip3 install virtualenv
 ```
@@ -241,13 +241,14 @@ deactivate
 ```
 
 ## OpenCV
-Install this module from pypi using `pip`:
+### pip command
 ```bash
 pip3 install opencv-contrib-python
 ```
 *[Complete Tutorial from pyimagesearch](https://www.pyimagesearch.com/2018/09/19/pip-install-opencv/)
 
 ## DLib + Face Recognition (ageitgey)  
+### pip command
 ```bash
 pip3 install dlib
 ```
@@ -256,8 +257,7 @@ pip3 install dlib
 *How to install dlib from source on Windows: While Windows isn't officially supported, helpful users have posted instructions on how to install this library:
   * [@masoudr's Windows 10 installation guide (dlib + face_recognition)](https://github.com/ageitgey/face_recognition/issues/175#issue-257710508)
   
-Then, install this module from pypi using `pip`:
-
+### pip command
 ```bash
 pip3 install face_recognition
 ```
