@@ -80,11 +80,7 @@ pip3 install -r requirements.txt
 ```
 ## Ubuntu
 ```bash
-sudo apt update
-sudo apt upgrade
-```
-```bash
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+sudo apt update && sudo apt upgrade
 ```
 ```bash
 sudo apt-get install git build-essential cmake python3 python3-pip libzbar-dev libzbar0 python3-dev python3-setuptools portaudio19-dev libffi-dev libsndfile1
@@ -97,8 +93,7 @@ cd face-access
 pip3 install virtualenv
 ```
 ```bash
-virtualenv cv
-source cv/bin/activate
+virtualenv cv && source cv/bin/activate
 ```
 ```bash
 pip3 install -r requirements.txt
