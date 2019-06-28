@@ -104,7 +104,38 @@ source cv/bin/activate
 pip3 install -r requirements.txt
 ```
 ## Windows
-*Go step-by-step
+```cmd
+@"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
+```
+* Install Visual Studio **with Visual C++ Build Tools 2015**
+
+  https://visualstudio.microsoft.com
+
+```cmd
+choco install git cmake python3 zbar
+```
+```cmd
+git clone https://github.com/alexandremendoncaalvaro/face-access.git
+cd face-access
+```
+```cmd
+pip3 install virtualenv
+```
+```cmd
+virtualenv cv
+source cv/bin/activate
+```
+* Download sounddevice (last whl file version) from the link below
+https://www.lfd.uci.edu/~gohlke/pythonlibs/#sounddevice
+* From the file path:
+```cmd
+pip3 install sounddevice_file_name.whl
+```
+* Replace the file name with the same of the downloaded file
+```cmd
+pip3 install -r requirements.txt
+```
+
 
 # Install (step-by-step)
 
@@ -302,7 +333,7 @@ sudo apt-get install python3-dev python3-setuptools portaudio19-dev libffi-dev l
 https://www.lfd.uci.edu/~gohlke/pythonlibs/#sounddevice
 * From the file path:
 ```cmd
-pip install sounddevice_file_name.whl
+pip3 install sounddevice_file_name.whl
 ```
 *Replace the file name with the same of the downloaded file
 
