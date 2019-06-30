@@ -1,5 +1,6 @@
 # Face Access
-Basic example of access control with face recognition
+Access control (Arduino controled) with face recognition (On PC)
+  * Multi Platform
   * MIT License
   * LGPDP Brasil Safe (Lei Geral de Proteção de Dados Pessoais)
 
@@ -25,7 +26,6 @@ Basic example of access control with face recognition
 ![](face_access_qrcode_demo.gif)
 
 *Easy QR-Code face register demonstration
-
 
 # Technologies and Libraries
 * [Python 3](https://www.python.org/)
@@ -388,3 +388,6 @@ or
 ```bash
 quit
 ```
+
+# Are you a native english speaker?
+No, I am not. If you find typos, grammar errors or whatever please feel free to PR or tell me.
