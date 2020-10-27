@@ -7,7 +7,7 @@ chardet==3.0.4
 chirpsdk==3.4.6
 Click==7.0
 configparser==3.7.4
-cryptography==2.6.1
+cryptography==3.2
 dlib==19.17.0
 face-recognition==1.2.3
 face-recognition-models==0.3.0
