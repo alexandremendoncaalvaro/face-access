@@ -27,7 +27,7 @@ PyQRCode==1.2.1
 pyserial==3.4
 PySoundFile==0.9.0.post1
 pyzbar==0.1.8
-requests==2.22.0
+requests==2.31.0
 requests-futures==0.9.9
 six==1.12.0
 sounddevice==0.3.13
